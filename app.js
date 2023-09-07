@@ -5,13 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-const client = require('./config/database');
 const mongoose = require('mongoose');
-const { Schema } = mongoose.Schema;
 const cors = require('cors')
 var app = express();
 
-mongoose.connect('mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/ChirpSite', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -29,36 +27,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// const apiRouter = require('./routes/index');
-// app.use('/index', apiRouter)
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.use('/', indexRouter);
 
-// app.set('views', __dirname + '/views');
+app.get('/random', function (req, res ) {
+    res.send("Hello, this is random")
+})
+
+//app.set('views', __dirname + '/views');
 // app.set('view engine', 'jsx');
 // app.engine('jsx', require('express-react-views').createEngine());
 
-
-app.use('/', indexRouter);
-
-app.listen(27017, function(error){
-  if(error) throw error
-  console.log("Server created Successfully")
-})
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  
   res.status(err.status || 500);
   res.render('error');
 });
 
+app.listen(27017, function(error){
+  if(error) throw error
+})
 
 module.exports = app;
