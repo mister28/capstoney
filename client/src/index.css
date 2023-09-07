@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -31,14 +31,14 @@ body {
   margin: 0;
   /* display: flex; */
   /* place-items: center; */
-  min-width: 320px;
+  /* min-width: 320px;
   min-height: 100vh;
-}
+} */
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */ 
 /* 
 button {
   border-radius: 8px;
@@ -72,8 +72,8 @@ button:focus-visible {
   }
 } */
 
-.container--main {
+/* .container--main {
   max-width: 600px;
   margin: 0 auto;
   background-color: yellow;
-}
+} */

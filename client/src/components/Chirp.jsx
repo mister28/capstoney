@@ -2,7 +2,7 @@ import React from 'react'
 import { MoreHorizontal, Heart, Repeat, MessageCircle, Send } from 'react-feather';
 
 
-const Tweet = ({Tweet}) => {
+const Chirp = ({Chirp}) => {
   return (
     <div className="flex p-4">
     <img 
@@ -11,7 +11,7 @@ const Tweet = ({Tweet}) => {
     />
 
       <div className="w-full px-2 pb-4 border-b border-[rgba(49,49,50,1)]">
-          {/* Tweets header */}
+          {/* Chirps header */}
           <div className="flex justify-between gap-2">
             <strong>Username</strong>
 
@@ -21,7 +21,7 @@ const Tweet = ({Tweet}) => {
             </div>
           </div>
 
-          {/* Tweets body */}
+          {/* Chirps body */}
             <div className="py-4">
               <span>Teslas are ugly</span>
             </div>
@@ -44,4 +44,4 @@ const Tweet = ({Tweet}) => {
   )
 }
 
-export default Tweet
+export default Chirp
