@@ -29,11 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-app.get('/random', function (req, res ) {
-    res.send("Hello, this is random")
-})
-
-//app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+// app.set('views', __dirname + '/views');
 // app.set('view engine', 'jsx');
 // app.engine('jsx', require('express-react-views').createEngine());
 
@@ -46,9 +44,8 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error.ejs');
 });
 
 app.listen(27017, function(error){
