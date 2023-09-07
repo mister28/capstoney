@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from "react";
-import { MoreHorizontal, Heart, Repeat, MessageCircle, Send } from 'react-feather';
-import Tweet from "../components/Tweet";
+// import React, {useEffect, useState} from "react";
+// import { MoreHorizontal, Heart, Repeat, MessageCircle, Send } from 'react-feather';
+// import Chirp from "../components/Chirp";
 
-const Feed = () => {
-    const [tweets, setTweets] = useState()
+// const Feed = () => {
+//     const [chirps, setChirps] = useState()
 
-    useEffect(() => {
-      getTweets()
-    }, [])
+//     useEffect(() => {
+//       getChirps()
+//     }, [])
 
-    const getTweets = async () => {
+//     const getChirps = async () => {
 
-    }
+//     }
 
-  return (
-    <div className="container mx-auto max-w-[600px]">
+//   return (
+//     <div className="container mx-auto max-w-[600px]">
 
-     <Tweet/>
-     <Tweet/>
-     <Tweet/>
-     <Tweet/>
-    </div>
-  );
-};
+//      <Chirp/>
+//      <Chirp/>
+//      <Chirp/>
+//      <Chirp/>
+//     </div>
+//   );
+// };
 
-export default Feed;
+// export default Feed;
