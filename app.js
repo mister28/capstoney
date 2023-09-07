@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -13,7 +12,6 @@ mongoose.connect('mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/Ch
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -32,9 +30,6 @@ app.use('/', indexRouter);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-// app.set('view engine', 'jsx');
-// app.engine('jsx', require('express-react-views').createEngine());
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -45,7 +40,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
-  res.render('error.ejs');
+  res.render('Error.jsx');
 });
 
 app.listen(27017, function(error){

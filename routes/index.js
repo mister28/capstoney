@@ -24,6 +24,28 @@ router.post('/api/chirp', function(req, res, next) {
     });
 });
 
+router.put('/api/chirp/edit/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body; 
+    
+    // Find the document by ID and update it
+    const updatedDocument = await Chirp.findByIdAndUpdate(id, updates, {
+      new: true, // Return the updated document
+    });
+
+    if (!updatedDocument) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+
+    // Respond with the updated document
+    res.json(updatedDocument);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 router.get('/api/register', function (req, res)  {
 });
 
@@ -58,28 +80,25 @@ router.get('/api/login', function(req, res, next) {
 });
 
 router.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
-  
+  const { Username, Password } = req.body;
   try {
     // Find the user in the MongoDB database
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ Username });
 
     if (!user) {
       return res.render("login", { title: "Login", error: "User not found" });
     }
-
     // Compare the provided password with the hashed password
-    const passwordMatch = await bcrypt.compare(password, User.password);
+    const hashedPW = user.Password;
+    const passwordMatch = await bcrypt.compare(Password, hashedPW);
 
     if (passwordMatch) {
       // Generate a JWT token upon successful login
-      const token = jwt.sign({ username: User.username, id: user._id }, "secretToken");
-      
+      const token = jwt.sign({ Username: user.Username, id: user._id }, "secretToken");
       // Set the token as a cookie
       res.cookie("token", token);
-      
       // Redirect to the user's profile
-      return res.redirect("/profile");
+      return res.redirect("/api/register");
     } else {
       return res.render("login", { title: "Login", error: "Passwords do not match" });
     }
@@ -89,7 +108,6 @@ router.post("/api/login", async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
-
 
 router.get('/api/profile', function(req, res, next) {
 });
