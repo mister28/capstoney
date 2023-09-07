@@ -31,7 +31,7 @@ app.use('/', indexRouter);
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-// app.set('views', __dirname + '/views');
+
 // app.set('view engine', 'jsx');
 // app.engine('jsx', require('express-react-views').createEngine());
 
