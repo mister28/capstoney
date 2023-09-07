@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "config": "^3.3.9",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -14,6 +15,7 @@
     "express": "~4.16.1",
     "express-react-views": "^0.11.0",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",
     "morgan": "~1.9.1",

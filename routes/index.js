@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 const Chirp = require('../models/Chirp')
 
@@ -55,8 +57,39 @@ router.post('/api/register', async (req, res) => {
 router.get('/api/login', function(req, res, next) {
 });
 
-router.post('/api/login', async (req, res) => {
+router.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  
+  try {
+    // Find the user in the MongoDB database
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.render("login", { title: "Login", error: "User not found" });
+    }
+
+    // Compare the provided password with the hashed password
+    const passwordMatch = await bcrypt.compare(password, User.password);
+
+    if (passwordMatch) {
+      // Generate a JWT token upon successful login
+      const token = jwt.sign({ username: User.username, id: user._id }, "secretToken");
+      
+      // Set the token as a cookie
+      res.cookie("token", token);
+      
+      // Redirect to the user's profile
+      return res.redirect("/profile");
+    } else {
+      return res.render("login", { title: "Login", error: "Passwords do not match" });
+    }
+  } catch (error) {
+    // Handle any errors that occur during the database query or bcrypt operation
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
 });
+
 
 router.get('/api/profile', function(req, res, next) {
 });
