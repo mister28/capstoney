@@ -13,6 +13,7 @@ import Explore from "./pages/Explore";
 import Signin from "./pages/Signin";
 import Navbar from './components/Navbar';
 import Error from './pages/Error';
+import Register from './pages/Register';
 
 const Layout = () => {
   return (
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/signout",
         element: <Signin />
+      },
+      {
+        path: "/register",
+        element: <Register />
       }
     ],
   },

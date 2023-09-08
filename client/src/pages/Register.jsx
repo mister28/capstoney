@@ -1,64 +1,48 @@
 import React, { useState } from "react";
 
-const Signin = () => {
-  const [RegisterForm, setRegisterForm] = useState({});
+const Register = () => {
+  const [RegisterForm, setRegisterForm] = useState({
+    firstName: "",
+    lastName: "",
+    Email: "",
+    Username: "",
+    Password: "",
+  });
 
   const setRegisterState = (e) => {
     setRegisterForm({
       ...RegisterForm,
       [e.target.name]: e.target.value,
     });
-    console.log(RegisterForm)
+    console.log("RegisterForm", RegisterForm)
   };
 
-  const [SigninForm, setSigninForm] = useState({});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        // Make a POST request to your backend with the form data
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            body: JSON.stringify(RegisterForm),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        // Handle the response from the backend (e.g., show a success message)
 
-  const setSigninState = (e) => {
-    setSigninForm({
-      ...SigninForm,
-      [e.target.name]: e.target.value,
-    });
-    console.log(SigninForm)
-  };
-
+        console.log('Response from backend:', response);
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error('Error:', error);
+      }
+    };
+  
 
   return (
     <>
-      {/* Signin form */}
-      <form className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-        <h2 className="text-3xl font-bold text-center">
-          Sign in to Chirper
-        </h2>
-
-        <input
-          name="Username"
-          type="text"
-          placeholder="username"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setSigninState(e)}
-          value={SigninForm.Username}
-        />
-        <input
-          name="Password"
-          type="password"
-          placeholder="password"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setSigninState(e)}
-          value={SigninForm.Password}
-        />
-        <button
-          className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
-          type="submit"
-        >
-          Sign in
-        </button>
-      </form>
-
-      <br />
-
       {/* Register form */}
-      <form className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-        <p className="text-center text-xl">Don't have an account?</p>
+      <form onSubmit={handleSubmit} className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
+        <p className="text-center text-xl">Sign up for an account</p>
         <input name="firstName"
           type="text"
           placeholder="First Name"
@@ -108,4 +92,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Register;
