@@ -49,9 +49,13 @@ const MainFeed = () => {
           value={ChirpForm.Content}
         />
 
+        <br/>
+        <br/>
+
         <button className="bg-blue-500 text-white py-2 px-4 rounded-full ml-auto">
           Chirp
         </button>
+
       </form>
 
       <div className="container mx-auto max-w-[600px]">
