@@ -63,7 +63,7 @@ router.post('/api/register', async (req, res) => {
       Username,
       Password,
       Email,
-      Chirp: [],
+      Chirps: [''],
       Friends: [],
     });
 
