@@ -1,6 +1,6 @@
 import React from "react";
 import LeftSidebar from "../components/LeftSidebar";
-import RightSidebar from "../components/RightSidebar";
+// import RightSidebar from "../components/RightSidebar";
 import MainFeed from "../components/MainFeed";
 
 
@@ -16,7 +16,7 @@ const Home = () => {
           <MainFeed />
         </div>
         <div className="px-6">
-          <RightSidebar />
+          {/* <RightSidebar /> */}
         </div>
       </div>
     </>

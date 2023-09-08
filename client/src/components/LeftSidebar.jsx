@@ -12,12 +12,12 @@ const LeftSidebar = () => {
             <p>Home</p>
           </div>
         </Link>
-        <Link to="/explore">
+        {/* <Link to="/explore">
           <div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
             <Tag fontSize="large" />
             <p>Explore</p>
           </div>
-        </Link>
+        </Link> */}
         <Link to="/profile/">
           <div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
             <User fontSize="large" />
