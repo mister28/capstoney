@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/api', indexRouter);
 
 // app.set('view engine', 'ejs');
 // app.set('views', __dirname + '/views');
@@ -48,8 +48,6 @@ app.use(function(err, req, res, next) {
   res.render('error.ejs');
 });
 
-app.listen(27017, function(error){
-  if(error) throw error
-})
+app.listen(3099, console.log("listening"))
 
 module.exports = app;

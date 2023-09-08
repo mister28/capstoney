@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Register = () => {
   const [RegisterForm, setRegisterForm] = useState({
@@ -21,7 +23,7 @@ const Register = () => {
     e.preventDefault();
     try {
         // Make a POST request to your backend with the form data
-        const response = await fetch('/api/register', {
+        const response = await fetch('http://localhost:3099/api/register', {
             method: 'POST',
             body: JSON.stringify(RegisterForm),
             headers: {
@@ -29,8 +31,8 @@ const Register = () => {
             },
         });
         // Handle the response from the backend (e.g., show a success message)
-
-        console.log('Response from backend:', response);
+        const data = await response.json()
+        console.log('Response from backend:', data);
       } catch (error) {
         // Handle errors (e.g., show an error message)
         console.error('Error:', error);
@@ -42,7 +44,7 @@ const Register = () => {
     <>
       {/* Register form */}
       <form onSubmit={handleSubmit} className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-        <p className="text-center text-xl">Sign up for an account</p>
+        <p className="text-center text-xl">Register for an account</p>
         <input name="firstName"
           type="text"
           placeholder="First Name"
@@ -88,6 +90,12 @@ const Register = () => {
           Register
         </button>
       </form>
+<br/>
+      <div>
+    <p className="text-center" >Already have an account? <Link to="/signin" className="text-blue-600">Sign In</Link>
+    </p>
+</div>
+
     </>
   );
 };
