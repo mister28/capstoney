@@ -8,7 +8,7 @@ const Error = () => {
         <p className='pb-2'>
             Please go back to login <br />
         </p>
-        <Link to="/signin" className="bg-blue-500 py-1 px-3 rounded-full text-white">Login</Link>
+        <Link to="/login" className="bg-blue-500 py-1 px-3 rounded-full text-white">Login</Link>
     </div>
   )
 }

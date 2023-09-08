@@ -10,7 +10,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Explore from "./pages/Explore";
-import Signin from "./pages/Signin";
+import Login from "./pages/Login";
 import Navbar from './components/Navbar';
 import Error from './pages/Error';
 import Register from './pages/Register';
@@ -43,12 +43,12 @@ const router = createBrowserRouter([
         element: <Explore />
       },
       {
-        path: "/signin",
-        element: <Signin />
+        path: "/login",
+        element: <Login />
       },
       {
         path: "/signout",
-        element: <Signin />
+        element: <Login />
       },
       {
         path: "/register",
