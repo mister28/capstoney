@@ -4,14 +4,19 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 const Chirp = require('../models/Chirp')
+// const authCheck = require('../middleware/authCheck')
 
 /* GET users listing. */
-router.get('/chirp', function(req, res, next) {
+router.get('/MainFeed', function(req, res, next) {
 });
 
-router.post('/chirp', function(req, res, next) {
+router.post('/MainFeed', function(req, res, next) {
+  const { Content } = req.body;
+console.log(Content)
+
+
   const newChirp = new Chirp({
-    Content: 'This is the content of the blog post.',
+    Content,
     Author: '64f90d218f4b9c2450bdad69',
   });
 

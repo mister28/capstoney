@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Signin = () => {
+const Login = () => {
   // const [RegisterForm, setRegisterForm] = useState({});
 
   // const setRegisterState = (e) => {
@@ -12,17 +12,17 @@ const Signin = () => {
   //   console.log(RegisterForm)
   // };
 
-  const [SigninForm, setSigninForm] = useState({
+  const [LoginForm, setLoginForm] = useState({
     Username: "",
     Password: "",
   });
 
-  const setSigninState = (e) => {
-    setSigninForm({
-      ...SigninForm,
+  const setLoginState = (e) => {
+    setLoginForm({
+      ...LoginForm,
       [e.target.name]: e.target.value,
     });
-    console.log(SigninForm)
+    console.log(LoginForm)
   };
 
   const handleSubmit = async (e) => {
@@ -31,7 +31,7 @@ const Signin = () => {
         // Make a POST request to your backend with the form data
         const response = await fetch('http://localhost:3099/api/login', {
             method: 'POST',
-            body: JSON.stringify(SigninForm),
+            body: JSON.stringify(LoginForm),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -47,10 +47,10 @@ const Signin = () => {
 
   return (
     <>
-      {/* Signin form */}
+      {/* Login form */}
       <form onSubmit={handleSubmit} className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
         <h2 className="text-3xl font-bold text-center">
-          Sign in to Chirper
+          Log in to Chirper
         </h2>
 
         <input
@@ -58,22 +58,22 @@ const Signin = () => {
           type="text"
           placeholder="username"
           className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setSigninState(e)}
-          value={SigninForm.Username}
+          onChange={(e) => setLoginState(e)}
+          value={LoginForm.Username}
         />
         <input
           name="Password"
           type="password"
           placeholder="password"
           className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setSigninState(e)}
-          value={SigninForm.Password}
+          onChange={(e) => setLoginState(e)}
+          value={LoginForm.Password}
         />
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
           type="submit"
         >
-          Sign in
+          Log in
         </button>
       </form>
 
@@ -137,4 +137,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;
