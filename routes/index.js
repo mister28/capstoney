@@ -6,10 +6,10 @@ const User = require('../models/User')
 const Chirp = require('../models/Chirp')
 
 /* GET users listing. */
-router.get('/api/chirp', function(req, res, next) {
+router.get('/chirp', function(req, res, next) {
 });
 
-router.post('/api/chirp', function(req, res, next) {
+router.post('/chirp', function(req, res, next) {
   const newChirp = new Chirp({
     Content: 'This is the content of the blog post.',
     Author: '64f90d218f4b9c2450bdad69',
@@ -24,10 +24,10 @@ router.post('/api/chirp', function(req, res, next) {
     });
 });
 
-router.get('/api/register', function (req, res)  {
+router.get('/register', function (req, res)  {
 });
 
-router.post('/api/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   const { firstName, lastName, Username, Password, Email } = req.body;
   try {
     const existingUser = await User.findOne({ Username });
@@ -47,60 +47,62 @@ router.post('/api/register', async (req, res) => {
 
     await newUser.save();
 
-    res.redirect("/api/login");
+    res.send(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).send("An error occurred while creating the user.");
   }
 })
 
-router.get('/api/login', function(req, res, next) {
+router.get('/login', function(req, res, next) {
 });
 
-router.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
-  
+router.post("/login", async (req, res) => {
+  const { Username, Password } = req.body;
+  console.log(Username);
+
   try {
     // Find the user in the MongoDB database
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ Username: Username });
+    console.log(user);
 
     if (!user) {
-      return res.render("login", { title: "Login", error: "User not found" });
+      return res.status(404).send("User not found");
     }
 
     // Compare the provided password with the hashed password
-    const passwordMatch = await bcrypt.compare(password, User.password);
+    const passwordMatch = await bcrypt.compare(Password, user.Password);
 
-    if (passwordMatch) {
-      // Generate a JWT token upon successful login
-      const token = jwt.sign({ username: User.username, id: user._id }, "secretToken");
-      
-      // Set the token as a cookie
-      res.cookie("token", token);
-      
-      // Redirect to the user's profile
-      return res.redirect("/profile");
-    } else {
-      return res.render("login", { title: "Login", error: "Passwords do not match" });
+    if (!passwordMatch) {
+      return res.status(401).send("Incorrect password");
     }
+
+    // Generate a JWT token upon successful login
+    const token = jwt.sign({ username: user.Username, id: user._id }, "secretToken");
+
+    // Set the token as a cookie and send it in the response
+    res.cookie("token", token);
+    res.json({ token }); // Sending the token as JSON
+
   } catch (error) {
     // Handle any errors that occur during the database query or bcrypt operation
     console.error(error);
-    return res.status(500).send("Internal Server Error");
+    res.status(500).send("An error occurred during login");
   }
 });
 
 
-router.get('/api/profile', function(req, res, next) {
+
+router.get('/profile', function(req, res, next) {
 });
 
-router.post('/api/profile', function(req, res, next) {
+router.post('/profile', function(req, res, next) {
 });
 
-router.get('/api/friends', function(req, res, next) {
+router.get('/friends', function(req, res, next) {
 });
 
-router.post('/api/friends', function(req, res, next) {
+router.post('/friends', function(req, res, next) {
 });
 
 module.exports = router;
