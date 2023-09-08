@@ -31,7 +31,7 @@ const LeftSidebar = () => {
           <p className="font-bold">@Username</p>
         </div>
         <div>
-            <Link to="signin">
+            <Link to="/signin">
                 <button className="bg-red-500 px-4 py-2 text-white rounded-full">Logout</button>
             </Link>
         </div>
