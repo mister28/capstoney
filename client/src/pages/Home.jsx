@@ -1,7 +1,7 @@
 import React from "react";
 import LeftSidebar from "../components/LeftSidebar";
 // import RightSidebar from "../components/RightSidebar";
-import MainFeed from "../components/MainFeed";
+import MainFeed from "./MainFeed";
 
 
 const Home = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import LeftSidebar from '../components/LeftSidebar'
-import RightSidebar from '../components/RightSidebar'
+// import RightSidebar from '../components/RightSidebar'
 
 const Profile = () => {
   return (
@@ -12,7 +12,7 @@ const Profile = () => {
 
         </div>
         <div className="px-6">
-          <RightSidebar />
+          
         </div>
     </div>
   )

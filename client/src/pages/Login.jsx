@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
-  // const [RegisterForm, setRegisterForm] = useState({});
-
-  // const setRegisterState = (e) => {
-  //   setRegisterForm({
-  //     ...RegisterForm,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   console.log(RegisterForm)
-  // };
-
+  const navigate = useNavigate();
   const [LoginForm, setLoginForm] = useState({
     Username: "",
     Password: "",
@@ -39,6 +30,12 @@ const Login = () => {
         // Handle the response from the backend (e.g., show a success message)
         const data = await response.json();
         console.log('Response from backend:', data);
+        if (data.token) {
+          // setUserData = data.User
+          // create a redux environment
+          navigate(`/`, { replace: true });
+        }
+
       } catch (error) {
         // Handle errors (e.g., show an error message)
         console.error('Error:', error);
@@ -77,56 +74,6 @@ const Login = () => {
         </button>
       </form>
 
-      {/* <br /> */}
-
-      {/* Register form */}
-      {/* <form className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-        <p className="text-center text-xl">Don't have an account?</p>
-        <input name="firstName"
-          type="text"
-          placeholder="First Name"
-          required
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setRegisterState(e)}
-          value={RegisterForm.firstName}
-        />
-        <input name="lastName"
-          type="text"
-          placeholder="Last Name"
-          required
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setRegisterState(e)}
-          value={RegisterForm.lastName}
-        />
-        <input name="Email"
-          type="email"
-          placeholder="email"
-          required
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setRegisterState(e)}
-          value={RegisterForm.Email}
-        />
-        <input name="Username"
-          type="text"
-          placeholder="username"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setRegisterState(e)}
-          value={RegisterForm.Username}
-        />
-        <input name="Password"
-          type="password"
-          placeholder="password"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setRegisterState(e)}
-          value={RegisterForm.Password}
-        />
-        <button
-          className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
-          type="submit"
-        >
-          Register
-        </button>
-      </form> */}
       <br/>
 <div>
     <p className="text-center" >Don't have an account? <Link to="/register" className="text-blue-600">Register</Link> </p>
