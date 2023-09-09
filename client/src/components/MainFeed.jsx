@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chirp from "../components/Chirp";
+import Chirp from "./Chirp";
 
 const MainFeed = () => {
   const [ChirpForm, setChirpForm] = useState({

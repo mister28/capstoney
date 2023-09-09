@@ -74,20 +74,18 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).send("User not found");
     }
-
     // Compare the provided password with the hashed password
     const passwordMatch = await bcrypt.compare(Password, user.Password);
 
     if (!passwordMatch) {
       return res.status(401).send("Incorrect password");
     }
-
     // Generate a JWT token upon successful login
     const token = jwt.sign({ username: user.Username, id: user._id }, "secretToken");
-
     // Set the token as a cookie and send it in the response
     res.cookie("token", token);
     res.json({ token }); // Sending the token as JSON
+    //res.send({ user, token})
 
   } catch (error) {
     // Handle any errors that occur during the database query or bcrypt operation
@@ -96,7 +94,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
+router.put('/profile/edit/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body; 
+    // Find the document by ID and update it
+    const updatedDocument = await User.findByIdAndUpdate(id, updates, {
+      new: true, // Return the updated document
+    });
+    if (!updatedDocument) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+    // Respond with the updated document
+    res.json(updatedDocument);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 router.get('/profile', function(req, res, next) {
 });
