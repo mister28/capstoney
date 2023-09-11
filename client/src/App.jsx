@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import Navbar from './components/Navbar';
 import Error from './pages/Error';
 import Register from './pages/Register';
+import EditProfile from './pages/EditProfile'
 
 const Layout = () => {
   return (
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />
+      },
+      {
+        path: "/profile/edit/:id",
+        element: <EditProfile />
       }
     ],
   },

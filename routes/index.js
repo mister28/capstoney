@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 const Chirp = require('../models/Chirp')
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb')
 // const authCheck = require('../middleware/authCheck')
 
 /* GET users listing. */
@@ -56,7 +58,7 @@ router.post('/register', async (req, res) => {
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).send("An error occurred while creating the user.");
-  }
+  } 
 })
 
 router.get('/login', function(req, res, next) {
@@ -94,22 +96,55 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.put('/profile/edit/:id', async (req, res) => {
+router.get('/profile/edit/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const updates = req.body; 
+  const id = '64fa0fd18213fc890bec9d43';
+  const UserInfo = await User.findById(id);
+  console.log(UserInfo)
+  res.send(UserInfo);
+} catch (error) {
+  console.error(error)
+  res.status(500).send("error");
+}
+})
+
+router.post('/profile/edit/:id', async (req, res) => {
+  try {
+    const filter = { _id:'64fa0fd18213fc890bec9d43' };
+    const update = req.body;
+    console.log(update);
+    
     // Find the document by ID and update it
-    const updatedDocument = await User.findByIdAndUpdate(id, updates, {
-      new: true, // Return the updated document
-    });
+    const updatedDocument = await User.findOneAndUpdate(filter, update,
+      { new: true }
+      );
+
     if (!updatedDocument) {
-      return res.status(404).json({ message: 'Document not found' });
+      return res.status(404).send("not updated");
     }
     // Respond with the updated document
     res.json(updatedDocument);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).send("error");
+
+  }
+});
+
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const userId = '64fa0fd18213fc890bec9d43';
+
+    // Find the user by ID and delete it
+    const deletedUser = await User.findOneAndDelete({ _id: userId });
+    res.send('deleted user')
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(204).send(); // Respond with a success status (204 No Content)
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred while deleting the user' });
   }
 });
 

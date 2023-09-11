@@ -48,6 +48,6 @@ app.use(function(err, req, res, next) {
   res.render('error.ejs');
 });
 
-app.listen(3099, console.log("listening"))
+app.listen(3099)
 
 module.exports = app;
