@@ -39,7 +39,6 @@ const Register = () => {
       }
     };
   
-
   return (
     <>
       {/* Register form */}
