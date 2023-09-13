@@ -39,7 +39,7 @@ const Login = () => {
           const token = 'secretToken'
           dispatch(Success(token));
           dispatch(fetchUserInfo(LoginForm.Username))
-          navigate(`/profile`, { replace: true });
+          navigate(`/`, { replace: true });
         } else {
           dispatch(Failure())
         }
