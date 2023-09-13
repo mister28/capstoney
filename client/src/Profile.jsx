@@ -1,6 +1,7 @@
 import React from 'react'
 import LeftSidebar from './components/LeftSidebar'
 // import RightSidebar from '../components/RightSidebar'
+import ProfileChirp from './components/ProfileChirp'
 
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -69,22 +70,9 @@ const Profile = () => {
         Edit
     </button>
   </form>
+  
     </>
   );
-};
-
-
+};3
 
 export default Profile;
-
-{/* <div>
-          {Auth ? (
-            <div>
-        <h2>Welcome, {User.Username}</h2>
-          <p>Email: {User.Email}</p>
-        </div>
-      ) : (
-        <div>Not authenticated</div>
-      )}
-        </div>
-      </div> */}
