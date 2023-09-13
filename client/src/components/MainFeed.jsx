@@ -54,7 +54,6 @@ const MainFeed = () => {
     //return () => setEditProfileForm([]);
   }, []);
 
-  
   return (
     <div>
       <p className="font-bold pl-2 my-2">Username</p>
@@ -80,15 +79,9 @@ const MainFeed = () => {
       </form>
       
       <div className="container mx-auto max-w-[600px]">
-        {/* Map through chirps and render them using the Chirp component */}
-        {/* {response.map((chirp) => (
-          <Chirp key={chirp.id} chirp={chirp} />
-        ))} */}
+      
+        <Chirp />
 
-        <Chirp />
-        {/* <Chirp />
-        <Chirp />
-        <Chirp /> */}
       </div>
     </div>
   );
