@@ -11,7 +11,6 @@ const passport = require('passport');
 router.get('/MainFeed/:id', async (req, res) => {
   try {
     const ChirpInfo = await Chirp.find();
-    console.log(ChirpInfo)
     res.send(ChirpInfo);
 
   } catch (error) {
@@ -152,21 +151,17 @@ router.delete('/delete/:id', async (req, res) => {
 });
 
 router.get('/profile', async (req, res) => {
-  try {
-    // Fetch user data from the database (e.g., based on user authentication)
-    const user = await User.findById(req.user.id); // Assuming you have authentication middleware
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    try {
+      const id = '64fa7e2f62fde51427f72e4e';
+      const ChirpInfo = await Chirp.find({"Author": id });
+      console.log(ChirpInfo)
+      res.send(ChirpInfo);
+  
+    } catch (error) {
+      console.error(error)
+      res.status(500).send("error");
     }
-
-    // Respond with user data
-    res.json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+  });
 
 router.post('/profile', function(req, res, next) {
 });
