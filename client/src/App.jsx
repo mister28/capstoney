@@ -7,14 +7,15 @@ import './App.css'
 // import Feed from './pages/Feed'
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import Explore from "./pages/Explore";
-import Login from "./pages/Login";
+import Home from "./Home";
+import Profile from "./Profile";
+import Explore from "./Explore";
+import Login from "./Login";
 import Navbar from './components/Navbar';
-import Error from './pages/Error';
-import Register from './pages/Register';
-import EditProfile from './pages/EditProfile'
+import Error from './Error';
+import Register from './Register';
+import EditProfile from './EditProfile'
+import Chirp from './components/Chirp';
 
 const Layout = () => {
   return (
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/edit/:id",
         element: <EditProfile />
+      },
+      {
+        path: "/chirp",
+        element: <Chirp />
       }
     ],
   },

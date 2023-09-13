@@ -9,7 +9,16 @@ const { ObjectId } = require('mongodb')
 // const authCheck = require('../middleware/authCheck')
 
 /* GET users listing. */
-router.get('/MainFeed', function(req, res, next) {
+router.get('/MainFeed/:id', async (req, res) => {
+  try {
+    const id = '64fa7e2f62fde51427f72e4e';
+    const ChirpInfo = await Chirp.find({"Author": id });
+    console.log(ChirpInfo)
+    res.send(ChirpInfo);
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("error");
+  }
 });
 
 router.post('/MainFeed', function(req, res, next) {
@@ -19,7 +28,7 @@ console.log(Content)
 
   const newChirp = new Chirp({
     Content,
-    Author: '64f90d218f4b9c2450bdad69',
+    Author: '64fa7e2f62fde51427f72e4e',
   });
 
   newChirp.save()
