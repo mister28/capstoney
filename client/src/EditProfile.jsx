@@ -19,9 +19,7 @@ const EditProfile = () => {
     Password: "",
   });
   const nav = useNavigate();
-  // const { handleSubmit } = useForm();
-  // const onSubmit = (data) => putUser(data);
-
+  
   useEffect(() => {
 
     fetch(`http://localhost:3099/api/profile/edit/Username`, {

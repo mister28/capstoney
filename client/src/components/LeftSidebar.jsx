@@ -18,7 +18,7 @@ const LeftSidebar = () => {
             <p>Explore</p>
           </div>
         </Link> */}
-        <Link to="/profile/">
+        <Link to="/profile">
           <div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
             <User fontSize="large" />
             <p>Profile</p>
