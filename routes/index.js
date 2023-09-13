@@ -8,12 +8,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 /* GET users listing. */
-router.get('/mainfeed/:id', async (req, res) => {
+router.get('/MainFeed/:id', async (req, res) => {
   try {
     const id = '64fa7e2f62fde51427f72e4e';
-    const UserInfo = await Chirp.findById(id);
-    console.log(UserInfo)
-    res.send(UserInfo);
+    const ChirpInfo = await Chirp.find({"Author": id });
+    console.log(ChirpInfo)
+    res.send(ChirpInfo);
+
   } catch (error) {
     console.error(error)
     res.status(500).send("error");

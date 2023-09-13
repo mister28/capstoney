@@ -10,6 +10,7 @@ const Home = () => {
   console.log(Auth);
   const User = useSelector((state) => state.user);
   console.log(User.values.firstName);
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-4">

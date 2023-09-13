@@ -23,6 +23,7 @@ const EditProfile = () => {
   // const onSubmit = (data) => putUser(data);
 
   useEffect(() => {
+
     fetch(`http://localhost:3099/api/profile/edit/Username`, {
       method: "GET",
       headers: { Accept: "application/json" },
@@ -39,6 +40,7 @@ const EditProfile = () => {
     try {
       // Make a POST request to your backend with the form data
       const response = await fetch(
+
         "http://localhost:3099/api/profile/edit/Username",
         {
           method: "POST",

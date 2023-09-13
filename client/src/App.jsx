@@ -15,6 +15,8 @@ import Navbar from './components/Navbar';
 import Error from './Error';
 import Register from './Register';
 import EditProfile from './EditProfile'
+import Chirp from './components/Chirp';
+
 
 const Layout = () => {
   return (
@@ -58,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/edit/Username",
         element: <EditProfile />
+      },
+      {
+        path: "/chirp",
+        element: <Chirp />
       }
     ],
   },

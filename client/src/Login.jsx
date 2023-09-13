@@ -17,12 +17,14 @@ const Login = () => {
       ...LoginForm,
       [e.target.name]: e.target.value,
     });
-    console.log(LoginForm)
+    console.log(LoginForm);
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
         const response = await fetch('http://localhost:3099/api/login', {
             method: 'POST',
             body: JSON.stringify(LoginForm),
@@ -73,6 +75,7 @@ const Login = () => {
         />
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
+
           type="submit">
           Log in
         </button>
