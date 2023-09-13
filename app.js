@@ -1,13 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const indexRouter = require('./routes/index');
 const mongoose = require('mongoose');
 const cors = require('cors')
-var app = express();
+const app = express();
 
 mongoose.connect('mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/ChirpSite', {
   useNewUrlParser: true,
@@ -20,6 +20,8 @@ db.once('open', function() {
   console.log('Connected to MongoDB');
 });
 
+// require('./middleware/auth');
+
 app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
@@ -27,13 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use('/profile', passport.authenticate('jwt', {session: false}), secureRoute);
+
 app.use('/api', indexRouter);
-
-// app.set('view engine', 'ejs');
-// app.set('views', __dirname + '/views');
-
-// app.set('view engine', 'jsx');
-// app.engine('jsx', require('express-react-views').createEngine());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

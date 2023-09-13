@@ -17,6 +17,7 @@ import Register from './Register';
 import EditProfile from './EditProfile'
 import Chirp from './components/Chirp';
 
+
 const Layout = () => {
   return (
     <div className='md:w-8/12 mx-auto'>
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: "/profile/edit/:id",
+        path: "/profile/edit/Username",
         element: <EditProfile />
       },
       {
