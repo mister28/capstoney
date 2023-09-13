@@ -10,8 +10,7 @@ const passport = require('passport');
 /* GET users listing. */
 router.get('/MainFeed/:id', async (req, res) => {
   try {
-    const id = '64fa7e2f62fde51427f72e4e';
-    const ChirpInfo = await Chirp.find({"Author": id });
+    const ChirpInfo = await Chirp.find();
     console.log(ChirpInfo)
     res.send(ChirpInfo);
 
