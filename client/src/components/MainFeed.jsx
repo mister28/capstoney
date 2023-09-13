@@ -41,24 +41,6 @@ const MainFeed = () => {
     }
   };
 
-  // const fetchChirps = async () => {
-  //   try {
-  //     //Fetch chiprs from backend
-  //     const response = await fetch("http://localhost:3099/api/MainFeed/id", {
-  //       method: "GET",
-  //       headers: { Accept: "application/json" },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setChirps(data); // Update the chirps state with the fetched data
-  //       console.log("response from backend", data)
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   useEffect(() => {
     fetch(`http://localhost:3099/api/MainFeed/id`, {
       method: "GET",
@@ -71,32 +53,6 @@ const MainFeed = () => {
       });
     //return () => setEditProfileForm([]);
   }, []);
-
-  // useEffect(() => {
-  //   // Fetch chirps when the component mounts
-  //   fetchChirps();
-  // }, []);
-
-  // const [ChirpInfo, setChirpInfo] = useState({
-
-  // })
-
-  // useEffect(() => {
-  //     const fetch = async () => {
-  //       try {
-  //         const ChirpFeed = await
-  //       }
-  //     }
-
-  //   fetch(`http://localhost:3099/api/MainFeed`, {
-  //     method: "GET",
-  //     headers: { Accept: "application/json" },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setChirpForm(response);
-  //     });
-  // }, []);
 
   return (
     <div>
@@ -123,15 +79,9 @@ const MainFeed = () => {
       </form>
       
       <div className="container mx-auto max-w-[600px]">
-        {/* Map through chirps and render them using the Chirp component */}
-        {/* {response.map((chirp) => (
-          <Chirp key={chirp.id} chirp={chirp} />
-        ))} */}
+      
+        <Chirp />
 
-        <Chirp />
-        {/* <Chirp />
-        <Chirp />
-        <Chirp /> */}
       </div>
     </div>
   );
