@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from 'react-redux'
+import LeftSidebar from './components/LeftSidebar'
 
 const EditProfile = () => {
   const [UserInfo, setUserInfo] = useState({
@@ -70,10 +71,7 @@ const EditProfile = () => {
 
   return (
     <>
-    <div className="grid grid-cols-1 md:grid-cols-4">
-    <div className="px-6">
-            <LeftSidebar />
-          </div>
+    <div>
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
@@ -85,7 +83,7 @@ const EditProfile = () => {
           required
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo.firstName}
+          value={User.firstName}
         />
         <input
           name="lastName"
@@ -126,15 +124,16 @@ const EditProfile = () => {
           type="submit">
           Save Changes
         </button>
-      </form>
-      <br></br>
       <button
         onClick={SubmitDelete}
-        className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
+        className="text-xl py-2 rounded-full px-4 bg-red-500 text-white"
         type="submit"
       >
         Delete your Account
       </button>
+      </form>
+      <br></br>
+      <br></br>
       </div>
     </>
   );

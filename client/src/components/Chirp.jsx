@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { MoreHorizontal, Heart } from "react-feather";
-import { useSelector } from 'react-redux'
 
 const Chirp = () => {
   const [chirps, setChirps] = useState([]);
