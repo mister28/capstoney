@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 
 const Chirp = new mongoose.Schema({
   Content : String,
-  Author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  Username: String,
   likes: {
     type: Number,
     default: 0 

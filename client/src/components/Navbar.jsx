@@ -14,7 +14,7 @@ const Navbar = () => {
 
         <div className='col-span-2 md:border-x-2 md:border-slate-200 md:px-6 my-6 md:my-0'>
             <div className='flex justify-between items-center'>
-                <h2 className="font-bold text-2xl">Home</h2>
+                <h2 className="text-center font-bold text-2xl">Chirper</h2>
                 {/* <Star className=''/> */}
             </div>
         </div>

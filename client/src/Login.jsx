@@ -79,11 +79,11 @@ const Login = () => {
           type="submit">
           Log in
         </button>
+    <p className="text-center-xl" >Don't have an account? <Link to="/register" className="text-blue-600">Register</Link> </p>
       </form>
 
       <br/>
 <div>
-    <p className="text-center" >Don't have an account? <Link to="/register" className="text-blue-600">Register</Link> </p>
 </div>
     </>
   );
