@@ -144,9 +144,11 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-router.get('/profile', async (req, res) => {
-    try {
-      const ChirpInfo = await Chirp.find();
+router.get('/profile/:Username', async (req, res) => {
+  const { Username } = req.params
+  console.log(Username)
+  try {
+      const ChirpInfo = await Chirp.find({Username});
       console.log(ChirpInfo)
       res.send(ChirpInfo);
   
