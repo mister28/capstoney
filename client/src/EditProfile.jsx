@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useForm } from "react-hook-form";
+import { useSelector } from 'react-redux'
 
 const EditProfile = () => {
-  const id = useParams();
-  const [EditProfileForm, setEditProfileForm] = useState({
-    firstName: "",
-    lastName: "",
-    Email: "",
-    Username: "",
-    Password: "",
-  });
   const [UserInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
@@ -18,20 +10,8 @@ const EditProfile = () => {
     Username: "",
     Password: "",
   });
+  const User = useSelector((state) => state.user.values);
   const nav = useNavigate();
-  
-  useEffect(() => {
-
-    fetch(`http://localhost:3099/api/profile/edit/Username`, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        setUserInfo(response);
-      });
-    //return () => setEditProfileForm([]);
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,11 +66,14 @@ const EditProfile = () => {
       ...UserInfo,
       [e.target.name]: e.target.value,
     });
-    //console.log("UserInfo", UserInfo)
   };
 
   return (
     <>
+    <div className="grid grid-cols-1 md:grid-cols-4">
+    <div className="px-6">
+            <LeftSidebar />
+          </div>
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
@@ -98,50 +81,49 @@ const EditProfile = () => {
         <p className="text-center text-xl">Edit User</p>
         <input
           name="firstName"
-          placeholder="First Name"
+          placeholder={User.firstName}
           required
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo?.firstName ? UserInfo?.firstName : ""}
+          value={UserInfo.firstName}
         />
         <input
           name="lastName"
           type="text"
-          placeholder="Last Name"
+          placeholder={User.lastName}
           required
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo?.lastName}
+          value={UserInfo.lastName}
         />
         <input
           name="Email"
           type="email"
-          placeholder="email"
+          placeholder={User.Email}
           required
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo?.Email}
+          value={UserInfo.Email}
         />
         <input
           name="Username"
           type="text"
-          placeholder="username"
+          placeholder={User.Username}
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo?.Username}
+          value={UserInfo.Username}
         />
         <input
           name="Password"
           type="password"
-          placeholder="password"
+          placeholder={User.Password}
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={UserInfo?.Password}
+          value={UserInfo.Password}
         />
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
-          type="submit"
-        >
+          type="submit">
           Save Changes
         </button>
       </form>
@@ -151,8 +133,9 @@ const EditProfile = () => {
         className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
         type="submit"
       >
-        Delete this User
+        Delete your Account
       </button>
+      </div>
     </>
   );
 };

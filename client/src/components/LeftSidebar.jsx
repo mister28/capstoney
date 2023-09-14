@@ -28,7 +28,7 @@ const LeftSidebar = () => {
           </div>
         </Link> */}
 
-        <Link to="/profile">
+        <Link to="/profile/edit">
           <div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
             <Tool fontSize="large" />
             <p>Edit Profile</p>
@@ -41,11 +41,11 @@ const LeftSidebar = () => {
           {/* <p className="font-bold">Username</p>
           <p className="font-bold">@Username</p> */}
         </div>
-        <div>
+        {/* <div>
             <Link to="/login">
                 <button className="bg-red-500 px-4 py-2 text-white rounded-full">Logout</button>
             </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import './App.css'
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./Home";
-import Profile from "./Profile";
 import Explore from "./Explore";
 import Login from "./Login";
 import Navbar from './components/Navbar';
@@ -16,6 +15,7 @@ import Error from './Error';
 import Register from './Register';
 import EditProfile from './EditProfile'
 import Chirp from './components/Chirp';
+import ProfileChirp from './components/ProfileChirp'
 
 
 const Layout = () => {
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile", // display the profile based on the user's specific ID
-        element: <Profile />
+        element: <ProfileChirp />
       },
       {
         path: "/explore",
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: "/profile/edit/Username",
+        path: "/profile/edit",
         element: <EditProfile />
       },
       {

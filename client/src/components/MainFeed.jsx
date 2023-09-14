@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Chirp from "./Chirp";
+import { useSelector } from 'react-redux'
 
 const MainFeed = () => {
   const [chirps, setChirps] = useState([]);
+  const User = useSelector((state) => state.user.values);
   const [ChirpForm, setChirpForm] = useState({
     Content: "",
-  }); // holds chirp text
+    Username: `${User.Username}`
+  }); 
 
   const setChirpState = (e) => {
     setChirpForm({
@@ -19,7 +22,7 @@ const MainFeed = () => {
     e.preventDefault();
     try {
       // Make a POST request to your backend with the form data
-      const response = await fetch("http://localhost:3099/api/MainFeed", {
+      const response = await fetch("http://localhost:3099/api/mainfeed", {
         method: "POST",
         body: JSON.stringify(ChirpForm),
         headers: {
@@ -33,8 +36,6 @@ const MainFeed = () => {
       // Clear the form after submitting
       setChirpForm({ Content: "" });
 
-      // Fetch the chirps again to update the list
-      // fetchChirps();
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error(error);
@@ -42,7 +43,7 @@ const MainFeed = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3099/api/MainFeed/id`, {
+    fetch(`http://localhost:3099/api/mainfeed/id`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
@@ -51,33 +52,33 @@ const MainFeed = () => {
         setChirps(response);
         console.log("response from backend", response)
       });
-    //return () => setEditProfileForm([]);
-  }, []);
+
+    }, []);
 
   return (
     <div>
-      <p className="font-bold pl-2 my-2">Username</p>
 
       <form onSubmit={handleSubmit} className="border-b-2 pb-6">
         <input
           name="Content"
           type="text"
           placeholder="What's on your mind?"
-          // maxLength={280}
           className="bg-slate-200 rounded-lg w-full p-2"
           onChange={(e) => setChirpState(e)}
           value={ChirpForm.Content}
         />
-
-    
+          <input 
+          name="Username"
+          type="text"
+          className="font-bold pl-2 my-2"
+          value={`${User.Username}`}
+        />
         <br />
         <br />
-
         <button className="bg-blue-500 text-white py-2 px-4 rounded-full ml-auto">
           Chirp
         </button>
       </form>
-      
       <div className="container mx-auto max-w-[600px]">
       
         <Chirp />
