@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { MoreHorizontal, Heart } from "react-feather";
+import { useSelector } from 'react-redux'
 
 const Chirp = () => {
   const [chirps, setChirps] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3099/api/MainFeed/id`, {
+    fetch(`http://localhost:3099/api/mainfeed/id`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
@@ -39,7 +40,7 @@ const Chirp = () => {
           <div className="w-full px-2 pb-4 border-b border-[rgba(49,49,50,1)]">
             {/* Chirps header */}
             <div className="flex justify-between gap-2">
-              <strong>Username</strong>
+              <strong>{item.Username}</strong>
 
               <div className="flex justify-between gap-2">
                 <p className="text-[rgba(97,97,97,1)]">

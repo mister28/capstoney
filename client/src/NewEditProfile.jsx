@@ -1,7 +1,6 @@
 import React from 'react'
 import LeftSidebar from './components/LeftSidebar'
 // import RightSidebar from '../components/RightSidebar'
-import ProfileChirp from './components/ProfileChirp'
 
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -12,7 +11,7 @@ const Profile = () => {
   const token = useSelector((state) => state.auth.token);
 
   const handleSubmit = async (e) => {
-    nav('/edit/profile/Username')
+    nav('/Profile')
   };
 
   return (
@@ -73,6 +72,6 @@ const Profile = () => {
   
     </>
   );
-};3
+};
 
 export default Profile;

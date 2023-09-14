@@ -39,7 +39,7 @@ const Chirp = () => {
           <div className="w-full px-2 pb-4 border-b border-[rgba(49,49,50,1)]">
             {/* Chirps header */}
             <div className="flex justify-between gap-2">
-              <strong>Username</strong>
+              <strong>{item.Username}</strong>
 
               <div className="flex justify-between gap-2">
                 <p className="text-[rgba(97,97,97,1)]">

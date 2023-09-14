@@ -4,11 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Chirp = require('../models/Chirp');
-const mongoose = require('mongoose');
-const passport = require('passport');
 
-/* GET users listing. */
-router.get('/MainFeed/:id', async (req, res) => {
+router.get('/mainfeed/:id', async (req, res) => {
   try {
     const ChirpInfo = await Chirp.find();
     res.send(ChirpInfo);
@@ -20,12 +17,12 @@ router.get('/MainFeed/:id', async (req, res) => {
 });
 
 router.post('/mainfeed', function(req, res, next) {
-  const { Content } = req.body;
+  const { Content, Username } = req.body;
   console.log(Content)
 
   const newChirp = new Chirp({
     Content,
-    Author: '64fa7e2f62fde51427f72e4e',
+    Username
   });
 
   newChirp.save()
@@ -111,13 +108,12 @@ router.get('/profile/edit/:Username', async (req, res) => {
 }
 })
 
-router.post('/profile/edit/:id', async (req, res) => {
+router.post('/profile/edit/:Username', async (req, res) => {
   try {
-    const filter = { _id:'64fa0fd18213fc890bec9d43' };
+    const filter = { Username: 'Matt' }
     const update = req.body;
     console.log(update);
     
-    // Find the document by ID and update it
     const updatedDocument = await User.findOneAndUpdate(filter, update,
       { new: true }
       );
@@ -125,7 +121,6 @@ router.post('/profile/edit/:id', async (req, res) => {
     if (!updatedDocument) {
       return res.status(404).send("not updated");
     }
-    // Respond with the updated document
     res.json(updatedDocument);
   } catch (error) {
     console.error(error);
@@ -137,13 +132,12 @@ router.delete('/delete/:id', async (req, res) => {
   try {
     const userId = '64fa0fd18213fc890bec9d43';
 
-    // Find the user by ID and delete it
     const deletedUser = await User.findOneAndDelete({ _id: userId });
     res.send('deleted user')
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    return res.status(204).send(); // Respond with a success status (204 No Content)
+    return res.status(204).send(); 
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'An error occurred while deleting the user' });
@@ -152,8 +146,7 @@ router.delete('/delete/:id', async (req, res) => {
 
 router.get('/profile', async (req, res) => {
     try {
-      const id = '64fa7e2f62fde51427f72e4e';
-      const ChirpInfo = await Chirp.find({"Author": id });
+      const ChirpInfo = await Chirp.find();
       console.log(ChirpInfo)
       res.send(ChirpInfo);
   
@@ -164,12 +157,6 @@ router.get('/profile', async (req, res) => {
   });
 
 router.post('/profile', function(req, res, next) {
-});
-
-router.get('/friends', function(req, res, next) {
-});
-
-router.post('/friends', function(req, res, next) {
 });
 
 module.exports = router;
