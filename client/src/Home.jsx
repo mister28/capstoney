@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {useState, useEffect } from 'react'
 import Chirp from "./components/Chirp";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   let Auth = useSelector((state) => state.auth.isAuthenticated);
   console.log(Auth);
   const User = useSelector((state) => state.user.values);
   console.log(User.Username);
+  const navigate = useNavigate();
 
   const [chirps, setChirps] = useState([]);
   // const User = useSelector((state) => state.user.values);
@@ -66,7 +68,7 @@ const Home = () => {
   return (
     <>
       {Auth ? (
-        <div className="grid grid-cols-1 md:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="px-6">
             <LeftSidebar />
           </div>
@@ -80,15 +82,11 @@ const Home = () => {
                 onChange={(e) => setChirpState(e)}
                 value={ChirpForm.Content}
               />
-              <input
-                name="Username"
-                type="text"
-                className="font-bold pl-2 my-2"
-                value={`${User.Username}`}
-              />
+
+              <p className="text-2xl font-bold pl-2 my-2">{User.Username}</p>
+
               <br />
-              <br />
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-full ml-auto">
+              <button className="bg-blue-500 text-white py- px-4 rounded-full ml-auto">
                 Chirp
               </button>
             </form>
@@ -102,21 +100,40 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <p className="text-center">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-600">
-              Log In
-            </Link>
-          </p>
-          <br></br>
-          <p className="text-center">
-            Don't have an account?{" "}
-            <Link to="/register" className="text-blue-600">
-              Register
-            </Link>
-          </p>
-        </div>
+
+navigate('/login')
+
+        // <div className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
+
+
+
+        //   <p className="text-2xl font-bold text-center ">
+        //     Already have an account?{" "}
+        //     <Link to="/login" className="py-2 px-4 rounded-full bg-blue-600 text-white hover:bg-blue-700">
+        //       Log In
+        //     </Link>
+        //   </p>
+          
+          
+          
+          
+        //   <br></br>
+          
+          
+          
+        //   <p className="text-2xl font-bold text-center">
+        //     Don't have an account?{" "}
+        //     <Link to="/register" className="py-2 px-4 rounded-full bg-blue-600 text-white hover:bg-blue-700">
+        //       Register
+        //     </Link>
+        //   </p>
+
+
+
+        // </div>
+
+
+
       )}
     </>
   );
