@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const LeftSidebar = () => {
   return (
-    <div className="flex flex-col h-full 
-    md:h-[85vh] 
+    <div className="flex flex-col h-full relative
+    md:h-[80vh] 
     justify-between mr-6">
       <div className="flex-grow mt-6 flex-col space-y-4">
         
@@ -38,7 +38,7 @@ const LeftSidebar = () => {
         </Link>
 
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between absolute bottom-0 left-0">
         <div>
           {/* <p className="font-bold">Username</p>
           <p className="font-bold">@Username</p> */}

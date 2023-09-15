@@ -25,7 +25,8 @@ const Register = () => {
         // Make a POST request to your backend with the form data
         const response = await fetch('http://localhost:3099/api/register', {
             method: 'POST',
-            body: JSON.stringify(RegisterForm),
+            body: FormData,
+            // JSON.stringify(RegisterForm),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -39,11 +40,13 @@ const Register = () => {
       }
     };
   
+const [profilePhoto, setProfilePhoto] = useState(null);
+
   return (
     <>
       {/* Register form */}
       <form onSubmit={handleSubmit} className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-        <p className="text-center text-xl">Register for an account</p>
+        <p className="text-3xl font-bold text-center">Register for an account</p>
         <input name="firstName"
           type="text"
           placeholder="First Name"
@@ -82,6 +85,12 @@ const Register = () => {
           onChange={(e) => setRegisterState(e)}
           value={RegisterForm.Password}
         />
+              <input name="Profile Photo"
+                type="file"
+                className="bg-transparent border border-slate-500 rounded p-2"
+                accept="image"
+                onChange={(e) => setImg(e.target.files[0])}
+              />
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
           type="submit"

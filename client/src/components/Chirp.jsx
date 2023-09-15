@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MoreHorizontal, Heart } from "react-feather";
 
-const Chirp = () => {
+const Chirp = ({toggle, setToggle}) => {
   const [chirps, setChirps] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Chirp = () => {
         setChirps(response);
         console.log("response from backend", response);
       });
-  }, []);
+  }, [toggle]);
 
   const [likes, setLikes] = useState({});
 
@@ -26,8 +26,14 @@ const Chirp = () => {
     }));
   };
 
+    // Function to format timestamp into a user-friendly format
+    const formatTimestamp = (timestamp) => {
+      const options = { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "numeric" };
+      return new Date(timestamp).toLocaleDateString("en-US", options);
+    };
+
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-middle">
       {chirps.map((item) => (
         <div key={item._id} className="flex p-4">
           <img
@@ -43,9 +49,11 @@ const Chirp = () => {
 
               <div className="flex justify-between gap-2">
                 <p className="text-[rgba(97,97,97,1)]">
-                  {/* {Chirp.timestamp} */}3 hours ago
+                  {/* 3 hours ago */}
+                  {formatTimestamp(item.Timestamp)} {/* Display formatted timestamp */}
+
                 </p>
-                <MoreHorizontal />
+                {/* <MoreHorizontal /> */}
               </div>
             </div>
 
