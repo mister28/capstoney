@@ -11,7 +11,7 @@ const Chirp = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        setChirps(response);
+        setChirps(response.reverse);
         console.log("response from backend", response);
       });
   }, []);

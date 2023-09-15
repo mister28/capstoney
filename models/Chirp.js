@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Chirp = new mongoose.Schema({
   Content : String,
   Username: String,
-  likes: {
+  Likes: {
     type: Number,
     default: 0 
   }

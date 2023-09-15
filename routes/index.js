@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Chirp = require('../models/Chirp');
+const { id } = require('date-fns/locale');
 
 router.get('/mainfeed/:id', async (req, res) => {
   try {
@@ -15,6 +16,7 @@ router.get('/mainfeed/:id', async (req, res) => {
     res.status(500).send("error");
   }
 });
+
 
 router.post('/mainfeed', function(req, res, next) {
   const { Content, Username } = req.body;
@@ -33,6 +35,7 @@ router.post('/mainfeed', function(req, res, next) {
       console.error('Error saving Chirp:', error);
     });
 });
+
 
 router.get('/register', function (req, res)  {
 });
@@ -148,7 +151,7 @@ router.delete('/delete/:Username', async (req, res) => {
 router.get('/profile/:Username', async (req, res) => {
   const Username  = req.params
   try {
-      const ChirpInfo = await Chirp.find({Username});
+      const ChirpInfo = await Chirp.find(Username);
       res.send(ChirpInfo);
   
     } catch (error) {
