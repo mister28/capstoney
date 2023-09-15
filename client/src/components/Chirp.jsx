@@ -31,6 +31,7 @@ const Chirp = ({toggle, setToggle}) => {
       const options = { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "numeric" };
       return new Date(timestamp).toLocaleDateString("en-US", options);
     };
+    const [userProfile, setUserProfile] = useState(null);
 
     // const handleSubmit = async (e) => {
     //   e.preventDefault();
@@ -56,7 +57,7 @@ const Chirp = ({toggle, setToggle}) => {
         <div key={item._id} className="flex p-4">
           <img
             className="w-10 h-10 rounded-full object-cover"
-            src="https://placekitten.com/200/200" // this will be the user's profile photo
+            src={userProfile?.profilePhoto} // this will be the user's profile photo
             alt="User's profile photo"
           />
 

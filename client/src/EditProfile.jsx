@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LeftSidebar from "./components/LeftSidebar";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "./firebase";
+import { changeProfile } from "./redux/reducers/userSlice";
 
 const EditProfile = () => {
   const [UserInfo, setUserInfo] = useState({
@@ -16,6 +24,71 @@ const EditProfile = () => {
   const nav = useNavigate();
   const [img, setImg] = useState(null);
   const [imgUploadProgress, setImgUploadProgress] = useState(0);
+
+  const Dispatch = useDispatch();
+
+  const {currentUser} = useSelector((state) => state.user)
+  const uploadImg = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setImgUploadProgress(Math.round(progress));
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+          default:
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        // switch (error.code) {
+        //   case 'storage/unauthorized':
+        //     // User doesn't have permission to access the object
+        //     break;
+        //   case 'storage/canceled':
+        //     // User canceled the upload
+        //     break;
+        //   // ...
+        //   case 'storage/unknown':
+        //     // Unknown error occurred, inspect error.serverResponse
+        //     break;
+        //     default:
+        //       break;
+        // }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+try {
+const updateProfile = await fetch(`/users/${currentUser._id}`, {
+  profilePicture: downloadURL,
+});
+console.log(updateProfile);
+} catch  (error)  {
+  console.log(error)
+}
+
+Dispatch(changeProfile(downloadURL));
+
+   });
+      }
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +138,10 @@ const EditProfile = () => {
     });
   };
 
+  useEffect(() => {
+    img && uploadImg(img);
+  }, [img]);
+
   return (
     <>
       {Auth ? (
@@ -78,14 +155,21 @@ const EditProfile = () => {
               onSubmit={handleSubmit}
               className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-auto mx-auto gap-10"
             >
-              <p className="text-center text-xl">Edit User</p>
+              <p className="text-center text-xl font-bold text-center">
+                Edit Profile
+              </p>
 
-              <input
-                type="file"
-                className="bg-transparent border border-slate-500 rounded p-2"
-                accept="image"
-                onChange={(e) => setImg(e.target.files[0])}
-              />
+              <p className="text-center">Choose a new profile photo</p>
+              {imgUploadProgress > 0 ? (
+                "Uploading " + imgUploadProgress + "%"
+              ) : (
+                <input
+                  type="file"
+                  className="bg-transparent border border-slate-500 rounded p-2"
+                  accept="image"
+                  onChange={(e) => setImg(e.target.files[0])}
+                />
+              )}
 
               <label className="text-xl py-2 rounded-full px-4">
                 {" "}
