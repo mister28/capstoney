@@ -12,15 +12,14 @@ const EditProfile = () => {
     Password: "",
   });
   const User = useSelector((state) => state.user.values);
+  let Auth = useSelector((state) => state.auth.isAuthenticated);
   const nav = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make a POST request to your backend with the form data
       const response = await fetch(
-
-        "http://localhost:3099/api/profile/edit/Username",
+        `http://localhost:3099/api/profile/edit/${User.Username}`,
         {
           method: "POST",
           body: JSON.stringify(UserInfo),
@@ -32,7 +31,7 @@ const EditProfile = () => {
       // Handle the response from the backend (e.g., show a success message)
       const data = await response.json();
       if (response.ok) {
-        nav("/");
+        nav("/profile/");
       } else {
         console.log("didnt work");
       }
@@ -47,12 +46,9 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:3099/api/delete/id",
+        `http://localhost:3099/api/delete/${User.Username}`,
         {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          method: "DELETE"
         }
       );
         nav("/");
@@ -60,8 +56,6 @@ const EditProfile = () => {
       console.error("Error:", error);
     }
   };
-
-
   const setProfileState = (e) => {
     setUserInfo({
       ...UserInfo,
@@ -71,20 +65,24 @@ const EditProfile = () => {
 
   return (
     <>
-    <div>
+    {Auth ? (
+      <div>
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
       >
         <p className="text-center text-xl">Edit User</p>
+        <label className="text-xl py-2 rounded-full px-4"> First Name :  
         <input
           name="firstName"
           placeholder={User.firstName}
           required
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
-          value={User.firstName}
+          value={UserInfo.firstName}
         />
+        </label>
+        <label className="text-xl py-2 rounded-full px-4"> Last Name :  
         <input
           name="lastName"
           type="text"
@@ -94,6 +92,8 @@ const EditProfile = () => {
           onChange={(e) => setProfileState(e)}
           value={UserInfo.lastName}
         />
+        </label>
+        <label className="text-xl py-2 rounded-full px-4"> Email :  
         <input
           name="Email"
           type="email"
@@ -103,6 +103,8 @@ const EditProfile = () => {
           onChange={(e) => setProfileState(e)}
           value={UserInfo.Email}
         />
+        </label>
+       <label className="text-xl py-2 rounded-full px-4"> Username :  
         <input
           name="Username"
           type="text"
@@ -111,14 +113,17 @@ const EditProfile = () => {
           onChange={(e) => setProfileState(e)}
           value={UserInfo.Username}
         />
+        </label>
+        <label className="text-xl py-2 rounded-full px-4"> Password :  
         <input
           name="Password"
           type="password"
-          placeholder={User.Password}
+          placeholder='New Password'
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setProfileState(e)}
           value={UserInfo.Password}
         />
+        </label>
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
           type="submit">
@@ -135,6 +140,9 @@ const EditProfile = () => {
       <br></br>
       <br></br>
       </div>
+      ) : (
+        nav('/login')
+      )}
     </>
   );
 };
