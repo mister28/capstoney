@@ -20,19 +20,23 @@ router.get('/mainfeed/:id', async (req, res) => {
 
 router.post('/mainfeed', function(req, res, next) {
   const { Content, Username } = req.body;
+  const Timestamp = new Date(); // Set the Timestamp to the current date and time
   console.log(Content)
 
   const newChirp = new Chirp({
     Content,
-    Username
+    Username,
+    Timestamp, // Store the current date and time
   });
 
   newChirp.save()
     .then((savedChirp) => {
       console.log('Chirp saved successfully:', savedChirp);
+      res.json(savedChirp);
     })
     .catch((error) => {
       console.error('Error saving Chirp:', error);
+      res.status(500).send("An error occurred while saving the chirp.");
     });
 });
 

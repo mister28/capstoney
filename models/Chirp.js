@@ -7,7 +7,14 @@ const Chirp = new mongoose.Schema({
   Likes: {
     type: Number,
     default: 0 
-  }
+  },
+  Timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+  profilePhoto: {
+      type: String
+  },
 });
 
 module.exports = mongoose.model('Chirp', Chirp);

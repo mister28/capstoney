@@ -18,13 +18,14 @@ const Home = () => {
   // const User = useSelector((state) => state.user.values);
   const [ChirpForm, setChirpForm] = useState({
     Content: "",
-    Username: `${User.Username}`,
   });
 
   const setChirpState = (e) => {
     setChirpForm({
       ...ChirpForm,
       [e.target.name]: e.target.value,
+      Username: `${User.Username}`,
+
     });
     console.log(ChirpForm);
   };
@@ -44,10 +45,14 @@ const Home = () => {
       console.log("Response from backend:", data);
 
       setChirpForm({ Content: "" });
+      setToggle(!toggle);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const [toggle, setToggle] = useState(true);
+
 
   useEffect(() => {
     fetch(`http://localhost:3099/api/mainfeed/id`, {
@@ -59,11 +64,15 @@ const Home = () => {
         setChirps(response);
         console.log("response from backend", response);
       });
+      if (!Auth) {
+        // Use navigate inside the useEffect to avoid rendering-related issues
+        navigate('/login');
+      }
   }, []);
 
   return (
     <>
-      {Auth ? (
+      {/* {Auth ? ( */}
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="px-6">
             <LeftSidebar />
@@ -79,15 +88,15 @@ const Home = () => {
                 value={ChirpForm.Content}
               />
 
-              <p className="text-2xl font-bold pl-2 my-2">{User.Username}</p>
+              <p className="text-2xl font-bold pl-2 my-2 text-blue-500" style={{ WebkitTextStroke: '.25px black', color: '#3b82f6' }} >{User.Username}</p>
 
               <br />
-              <button className="bg-blue-500 text-white py- px-4 rounded-full ml-auto">
+              <button className="bg-blue-500 text-white py-1 px-4 rounded-full ml-auto">
                 Chirp
               </button>
             </form>
             <div className="container mx-auto max-w-[600px]">
-              <Chirp />
+              <Chirp toggle={toggle} setToggle={setToggle} />
             </div>
           </div>
           <div className="px-6">
@@ -95,9 +104,8 @@ const Home = () => {
             {/* <RightSidebar />{" "} */}
           </div>
         </div>
-      ) : (
-        navigate('/login')
-      )}
+
+
     </>
   );
 };
