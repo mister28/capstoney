@@ -2,16 +2,17 @@ import React from "react";
 import LeftSidebar from "./components/LeftSidebar";
 // import RightSidebar from "./components/RightSidebar";
 // import MainFeed from "./components/MainFeed";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector} from "react-redux";
 import {useState, useEffect } from 'react'
 import Chirp from "./components/Chirp";
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   let Auth = useSelector((state) => state.auth.isAuthenticated);
   console.log(Auth);
   const User = useSelector((state) => state.user.values);
   console.log(User.Username);
+  const navigate = useNavigate();
 
   const [chirps, setChirps] = useState([]);
   // const User = useSelector((state) => state.user.values);
@@ -31,7 +32,6 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make a POST request to your backend with the form data
       const response = await fetch("http://localhost:3099/api/mainfeed", {
         method: "POST",
         body: JSON.stringify(ChirpForm),
@@ -39,14 +39,12 @@ const Home = () => {
           "Content-Type": "application/json",
         },
       });
-      // Handle the response from the backend (e.g., show a success message)
+      
       const data = await response.json();
       console.log("Response from backend:", data);
 
-      // Clear the form after submitting
       setChirpForm({ Content: "" });
     } catch (error) {
-      // Handle errors (e.g., show an error message)
       console.error(error);
     }
   };
@@ -102,21 +100,7 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <p className="text-center">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-600">
-              Log In
-            </Link>
-          </p>
-          <br></br>
-          <p className="text-center">
-            Don't have an account?{" "}
-            <Link to="/register" className="text-blue-600">
-              Register
-            </Link>
-          </p>
-        </div>
+        navigate('/login')
       )}
     </>
   );
