@@ -49,29 +49,6 @@ const Login = () => {
         console.error('Error:', error);
       }
     };
-      const response = await fetch("http://localhost:3099/api/login", {
-        method: "POST",
-        body: JSON.stringify(LoginForm),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-      console.log("Response from backend:", data);
-      if (data.token) {
-        const token = "secretToken";
-        dispatch(Success(token));
-        dispatch(fetchUserInfo(LoginForm.Username));
-        navigate(`/`, { replace: true });
-      } else {
-        dispatch(Failure());
-      }
-    } catch (error) {
-      // Handle errors (e.g., show an error message)
-      console.error("Error:", error);
-    }
-  };
 
   return (
     <>
