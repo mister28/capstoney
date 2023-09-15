@@ -32,21 +32,39 @@ const Chirp = () => {
     }));
   };
 
+  const [userProfile, setUserProfile] = useState(null);
+
+  // Function to format timestamp into a user-friendly format
+  const formatTimestamp = (timestamp) => {
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    return new Date(timestamp).toLocaleDateString("en-US", options);
+  };
+
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         <div className="px-6">
           <LeftSidebar />
         </div>
         <div className="grid place-items-center">
           {chirps.map((item) => (
             <div key={item._id} className="flex p-4">
+              <img
+                className="w-10 h-10 rounded-full object-cover"
+                src={userProfile?.profilePhoto} // this will be the user's profile photo
+                alt="User's profile photo"
+              />
               {/* <img
             className="w-10 h-10 rounded-full object-cover"
             src="https://placekitten.com/200/200" // this will be the user's profile photo
             alt="User's profile photo"
           /> */}
-
               <div className="w-full px-2 pb-4 border-b border-[rgba(49,49,50,1)]">
                 {/* Chirps header */}
                 <div className="flex justify-between gap-2">
@@ -54,9 +72,11 @@ const Chirp = () => {
 
                   <div className="flex justify-between gap-2">
                     <p className="text-[rgba(97,97,97,1)]">
-                      {/* {Chirp.timestamp} */}3 hours ago
+                      {/* {Chirp.timestamp} */}
+                      {formatTimestamp(item.Timestamp)}{" "}
+                      {/* Display formatted timestamp */}
                     </p>
-                    <MoreHorizontal />
+                    {/* <MoreHorizontal /> */}
                   </div>
                 </div>
 
