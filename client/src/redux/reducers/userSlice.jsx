@@ -21,12 +21,20 @@ export const fetchUserInfo = createAsyncThunk("fetch", async (Username) => {
       Username: '',
       Password: '',
       Email: '',
-    },loading: false};
+    },
+    currentUser: {
+      profilePhoto: '',
+    },
+    loading: false};
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    changeProfile: (state, action) => {
+      state.currentUser.profilePhoto = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserInfo.pending, (state) => {
       state.loading = true;
@@ -40,5 +48,9 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const {
+  changeProfile
+} = userSlice.actions;
 
 export default userSlice.reducer;
