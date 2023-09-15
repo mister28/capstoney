@@ -38,6 +38,25 @@ router.post('/mainfeed', function(req, res, next) {
     });
 });
 
+router.post('/likechirp/:id', async (req, res) => {
+  const id = req.params
+  try {
+    const filter = id
+    const update = req.body
+    const updatedDocument = await User.findOneAndUpdate(filter, update,
+      { new: true }
+      );
+    if (!updatedDocument) {
+      return res.status(404).send("not updated");
+    }
+    res.json(updatedDocument);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error");
+  }
+});
+
+
 router.get('/register', function (req, res)  {
 });
 
