@@ -109,8 +109,9 @@ router.get('/profile/edit/:Username', async (req, res) => {
 })
 
 router.post('/profile/edit/:Username', async (req, res) => {
+  const Username = req.params;
   try {
-    const filter = { Username: 'Matt' }
+    const filter =  Username
     const update = req.body;
     console.log(update);
     
@@ -128,28 +129,26 @@ router.post('/profile/edit/:Username', async (req, res) => {
   }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:Username', async (req, res) => {
+  const Username = req.params
   try {
-    const userId = '64fa0fd18213fc890bec9d43';
-
-    const deletedUser = await User.findOneAndDelete({ _id: userId });
+    const filter = Username
+    const deletedUser = await User.findOneAndDelete(filter);
     res.send('deleted user')
+    console.log(deletedUser)
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
     return res.status(204).send(); 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'An error occurred while deleting the user' });
   }
 });
 
 router.get('/profile/:Username', async (req, res) => {
-  const { Username } = req.params
-  console.log(Username)
+  const Username  = req.params
   try {
       const ChirpInfo = await Chirp.find({Username});
-      console.log(ChirpInfo)
       res.send(ChirpInfo);
   
     } catch (error) {

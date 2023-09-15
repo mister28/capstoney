@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate} from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import { Success, Failure } from "./redux/reducers/authSlice";
 import { fetchUserInfo } from "./redux/reducers/userSlice";
 
@@ -18,11 +18,37 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
     console.log(LoginForm);
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+        const response = await fetch('http://localhost:3099/api/login', {
+            method: 'POST',
+            body: JSON.stringify(LoginForm),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+      
+        const data = await response.json();
+        console.log('Response from backend:', data);
+        if (data.token) {
+          const token = 'secretToken'
+          dispatch(Success(token));
+          dispatch(fetchUserInfo(LoginForm.Username))
+          navigate('/', { replace: true });
+        } else {
+          dispatch(Failure())
+        }
+
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error('Error:', error);
+      }
+    };
       const response = await fetch("http://localhost:3099/api/login", {
         method: "POST",
         body: JSON.stringify(LoginForm),

@@ -2,11 +2,10 @@ import React from "react";
 import LeftSidebar from "./components/LeftSidebar";
 // import RightSidebar from "./components/RightSidebar";
 // import MainFeed from "./components/MainFeed";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector} from "react-redux";
 import {useState, useEffect } from 'react'
 import Chirp from "./components/Chirp";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   let Auth = useSelector((state) => state.auth.isAuthenticated);
@@ -33,7 +32,6 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make a POST request to your backend with the form data
       const response = await fetch("http://localhost:3099/api/mainfeed", {
         method: "POST",
         body: JSON.stringify(ChirpForm),
@@ -41,14 +39,12 @@ const Home = () => {
           "Content-Type": "application/json",
         },
       });
-      // Handle the response from the backend (e.g., show a success message)
+      
       const data = await response.json();
       console.log("Response from backend:", data);
 
-      // Clear the form after submitting
       setChirpForm({ Content: "" });
     } catch (error) {
-      // Handle errors (e.g., show an error message)
       console.error(error);
     }
   };
@@ -100,40 +96,7 @@ const Home = () => {
           </div>
         </div>
       ) : (
-
-navigate('/login')
-
-        // <div className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10">
-
-
-
-        //   <p className="text-2xl font-bold text-center ">
-        //     Already have an account?{" "}
-        //     <Link to="/login" className="py-2 px-4 rounded-full bg-blue-600 text-white hover:bg-blue-700">
-        //       Log In
-        //     </Link>
-        //   </p>
-          
-          
-          
-          
-        //   <br></br>
-          
-          
-          
-        //   <p className="text-2xl font-bold text-center">
-        //     Don't have an account?{" "}
-        //     <Link to="/register" className="py-2 px-4 rounded-full bg-blue-600 text-white hover:bg-blue-700">
-        //       Register
-        //     </Link>
-        //   </p>
-
-
-
-        // </div>
-
-
-
+        navigate('/login')
       )}
     </>
   );
