@@ -12,9 +12,6 @@ const Chirp = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  profilePhoto: {
-      type: String
-  },
 });
 
 module.exports = mongoose.model('Chirp', Chirp);

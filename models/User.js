@@ -12,7 +12,7 @@ const User = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'Chirp',
   },
-  Friends : [String]
+  Friends : [String],
 });
 
 User.pre('save', async function (next) {

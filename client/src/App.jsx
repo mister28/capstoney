@@ -1,26 +1,17 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
-
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-// import Feed from './pages/Feed'
-
+import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./Home";
-import Explore from "./Explore";
 import Login from "./Login";
-import Navbar from './components/Navbar';
-import Error from './Error';
-import Register from './Register';
-import EditProfile from './EditProfile'
-import Chirp from './components/Chirp';
-import ProfileChirp from './components/ProfileChirp'
-
+import Navbar from "./components/Navbar";
+import Error from "./Error";
+import Register from "./Register";
+import EditProfile from "./EditProfile";
+import Chirp from "./components/Chirp";
+import ProfileChirp from "./components/ProfileChirp";
 
 const Layout = () => {
   return (
-    <div className='md:w-8/12 mx-auto'>
+    <div className="md:w-8/12 mx-auto">
       <Navbar />
       <Outlet></Outlet>
     </div>
@@ -39,46 +30,34 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile", // display the profile based on the user's specific ID
-        element: <ProfileChirp />
-      },
-      {
-        path: "/explore",
-        element: <Explore />
+        element: <ProfileChirp />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/signout",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/register",
-        element: <Register />
+        element: <Register />,
       },
       {
         path: "/profile/edit",
-        element: <EditProfile />
+        element: <EditProfile />,
       },
       {
         path: "/chirp",
-        element: <Chirp />
-      }
+        element: <Chirp />,
+      },
     ],
   },
 ]);
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<Feed/>}/>
-    //   </Routes>
-    // </Router>
-
     <div>
       <RouterProvider router={router}></RouterProvider>
     </div>

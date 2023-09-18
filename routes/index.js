@@ -62,7 +62,7 @@ router.get('/register', function (req, res)  {
 });
 
 router.post('/register', async (req, res) => {
-  const { firstName, lastName, Username, Password, Email } = req.body;
+  const { firstName, lastName, Username, Password, Email, profilePhoto } = req.body;
   try {
     const existingUser = await User.findOne({ Username });
     if (existingUser) {
@@ -77,6 +77,7 @@ router.post('/register', async (req, res) => {
       Email,
       Chirp: [],
       Friends: [],
+      // profilePhoto,
     });
 
     await newUser.save();
@@ -121,7 +122,6 @@ router.get('/profile/edit/:Username', async (req, res) => {
   const Username = req.params.Username;
   console.log(Username)
   try {
-  // const id = '64fa0fd18213fc890bec9d43';
   const UserInfo = await User.findOne({ Username: Username });
   res.send(UserInfo);
 } catch (error) {
