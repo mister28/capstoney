@@ -20,7 +20,6 @@ const Login = () => {
       ...LoginForm,
       [e.target.name]: e.target.value,
     });
-    console.log(LoginForm);
   };
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,7 @@ const Login = () => {
         },
       });
       const data = await response.json();
-      console.log("Response from backend:", data);
+      // console.log("Response from backend:", data);
       if (data.token) {
         const token = "secretToken";
         dispatch(Success(token));
@@ -74,7 +73,7 @@ const Login = () => {
             onChange={(e) => setLoginState(e)}
             value={LoginForm.Password}
           />
-            {errorMessage && <div className="error"> {errorMessage} </div>}
+            {errorMessage && <div className="text-[rgb(225,29,72)] text-center text-xl"> {errorMessage} </div>}
           <button
             className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
             type="submit"

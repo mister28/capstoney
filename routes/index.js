@@ -31,7 +31,6 @@ router.post('/mainfeed', function(req, res, next) {
 
   newChirp.save()
     .then((savedChirp) => {
-      console.log('Chirp saved successfully:', savedChirp);
       res.json(savedChirp);
     })
     .catch((error) => {
@@ -66,9 +65,9 @@ router.post('/register', async (req, res) => {
   const { firstName, lastName, Username, Password, Email } = req.body;
   try {
     const existingUser = await User.findOne({ Username });
-    console.log("existingUser", existingUser);
     if (existingUser) {
-      return res.status(400).send("Username already taken.");
+      const responsedata = {Message: 'Username Already Taken'}
+      return res.send(responsedata);
     }
     const newUser = new User({
       firstName,
@@ -94,7 +93,6 @@ router.get('/login', function(req, res, next) {
 
 router.post("/login", async (req, res) => {
   const { Username, Password } = req.body;
-  console.log(Username);
 
   try {
     const user = await User.findOne({ Username: Username });
@@ -125,7 +123,6 @@ router.get('/profile/edit/:Username', async (req, res) => {
   try {
   // const id = '64fa0fd18213fc890bec9d43';
   const UserInfo = await User.findOne({ Username: Username });
-  console.log(UserInfo)
   res.send(UserInfo);
 } catch (error) {
   console.error(error)
@@ -138,7 +135,6 @@ router.post('/profile/edit/:Username', async (req, res) => {
   try {
     const filter =  Username
     const update = req.body;
-    console.log(update);
     
     const updatedDocument = await User.findOneAndUpdate(filter, update,
       { new: true }
@@ -160,7 +156,6 @@ router.delete('/delete/:Username', async (req, res) => {
     const filter = Username
     const deletedUser = await User.findOneAndDelete(filter);
     res.send('deleted user')
-    console.log(deletedUser)
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }

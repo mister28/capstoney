@@ -33,9 +33,9 @@ const Register = () => {
   const [img, setImg] = useState(null);
   const [imgUploadProgress, setImgUploadProgress] = useState(0);
   const Dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState(false);
 
-
-  const {currentUser} = useSelector((state) => state.user)
+  const { currentUser } = useSelector((state) => state.user);
   const uploadImg = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -52,10 +52,8 @@ const Register = () => {
         setImgUploadProgress(Math.round(progress));
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
             break;
           case "running":
-            console.log("Upload is running");
             break;
           default:
             break;
@@ -82,18 +80,16 @@ const Register = () => {
       () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-try {
-const updateProfile = await fetch(`/users/${currentUser._id}`, {
-  profilePicture: downloadURL,
-});
-console.log(updateProfile);
-} catch  (error)  {
-  console.log(error)
-}
+          try {
+            const updateProfile = await fetch(`/users/${currentUser._id}`, {
+              profilePicture: downloadURL,
+            });
+          } catch (error) {
+            console.log(error);
+          }
 
-Dispatch(changeProfile(downloadURL));
-
-   });
+          Dispatch(changeProfile(downloadURL));
+        });
       }
     );
   };
@@ -102,11 +98,10 @@ Dispatch(changeProfile(downloadURL));
     img && uploadImg(img);
   }, [img]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // setErrorMessage("Username is Already Taken");
     try {
-      // Make a POST request to your backend with the form data
       const response = await fetch("http://localhost:3099/api/register", {
         method: "POST",
         body: JSON.stringify(RegisterForm),
@@ -114,11 +109,14 @@ Dispatch(changeProfile(downloadURL));
           "Content-Type": "application/json",
         },
       });
-      // Handle the response from the backend (e.g., show a success message)
       const data = await response.json();
-      console.log("Response from backend:", data);
-      navigate('/login');
-
+      // console.log("Response from backend:", data);
+      if (data.Message) {
+        // console.log(data.Message);
+        setErrorMessage(true)
+      } else {
+        navigate("/login");
+      }
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error:", error);
@@ -129,7 +127,6 @@ Dispatch(changeProfile(downloadURL));
 
   return (
     <>
-      {/* Register form */}
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
@@ -171,7 +168,8 @@ Dispatch(changeProfile(downloadURL));
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setRegisterState(e)}
           value={RegisterForm.Username}
-        />
+          />
+          {errorMessage && <div className="text-[rgb(225,29,72)] text-center text-xl"> {'Username Already Taken'}</div>}
         <input
           name="Password"
           type="password"
@@ -180,22 +178,21 @@ Dispatch(changeProfile(downloadURL));
           onChange={(e) => setRegisterState(e)}
           value={RegisterForm.Password}
         />
-        
-<p className="text-center text-l text-center">Upload your profile photo</p>
-{imgUploadProgress > 0 ? (
-  "Uploading " + imgUploadProgress + "%"
-) : (
 
-
-        <input
-          name="Profile Photo"
-          type="file"
-          className="bg-transparent border border-slate-500 rounded p-2"
-          accept="image"
-          onChange={(e) => setImg(e.target.files[0])}
-        />
-)}
-
+        {/* <p className="text-center text-l text-center">
+          Upload your profile photo
+        </p>
+        {imgUploadProgress > 0 ? (
+          "Uploading " + imgUploadProgress + "%"
+        ) : (
+          <input
+            name="Profile Photo"
+            type="file"
+            className="bg-transparent border border-slate-500 rounded p-2"
+            accept="image"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+        )} */}
 
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
