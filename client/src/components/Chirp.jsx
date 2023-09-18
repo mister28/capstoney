@@ -12,7 +12,6 @@ const Chirp = ({ toggle, setToggle }) => {
       .then((response) => response.json())
       .then((response) => {
         setChirps(response.reverse());
-        console.log("response from backend", response);
       });
   }, [toggle]);
 
@@ -77,6 +76,7 @@ const Chirp = ({ toggle, setToggle }) => {
             <div className="flex gap-4">
               <p className="text-[rgba(97,97,97,1)]">
                 {likes[item._id] ? "Liked" : ""}
+
               </p>
             </div>
           </div>

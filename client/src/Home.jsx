@@ -25,7 +25,6 @@ const Home = () => {
       Username: `${User.Username}`,
 
     });
-    console.log(ChirpForm);
   };
 
   const handleSubmit = async (e) => {
@@ -40,7 +39,6 @@ const Home = () => {
       });
       
       const data = await response.json();
-      console.log("Response from backend:", data);
 
       setChirpForm({ Content: "" });
       setToggle(!toggle);
@@ -60,7 +58,6 @@ const Home = () => {
       .then((response) => response.json())
       .then((response) => {
         setChirps(response);
-        console.log("response from backend", response);
       });
       if (!Auth) {
         // Use navigate inside the useEffect to avoid rendering-related issues
@@ -70,7 +67,6 @@ const Home = () => {
 
   return (
     <>
-      {/* {Auth ? ( */}
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="px-6">
             <LeftSidebar />
@@ -98,8 +94,6 @@ const Home = () => {
             </div>
           </div>
           <div className="px-6">
-            {/* {" "} */}
-            {/* <RightSidebar />{" "} */}
           </div>
         </div>
 

@@ -23,11 +23,12 @@ const Register = () => {
   useEffect(() => {
   }, []);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // setErrorMessage("Username is Already Taken");
     try {
 
-      // Make a POST request to your backend with the form data
       const response = await fetch("http://localhost:3099/api/register", {
         method: "POST",
         body: JSON.stringify(RegisterForm),
@@ -35,10 +36,15 @@ const Register = () => {
           "Content-Type": "application/json",
         },
       });
-      // Handle the response from the backend (e.g., show a success message)
       const data = await response.json();
-      console.log("Response from backend:", data);
-      navigate("/login");
+
+      // console.log("Response from backend:", data);
+      if (data.Message) {
+        // console.log(data.Message);
+        setErrorMessage(true)
+      } else {
+        navigate("/login");
+      }
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error:", error);
@@ -48,7 +54,6 @@ const Register = () => {
 
   return (
     <>
-      {/* Register form */}
       <form
         onSubmit={handleSubmit}
         className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
@@ -91,7 +96,8 @@ const Register = () => {
           className="text-xl py-2 rounded-full px-4"
           onChange={(e) => setRegisterState(e)}
           value={RegisterForm.Username}
-        />
+          />
+          {errorMessage && <div className="text-[rgb(225,29,72)] text-center text-xl"> {'Username Already Taken'}</div>}
         <input
           name="Password"
           type="password"
@@ -100,6 +106,7 @@ const Register = () => {
           onChange={(e) => setRegisterState(e)}
           value={RegisterForm.Password}
         />
+
 
         <button
           className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"

@@ -33,9 +33,7 @@ const EditProfile = () => {
       if (response.ok) {
         nav("/profile/");
       } else {
-        console.log("didnt work");
       }
-      console.log("Response from backend:", data);
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error:", error);

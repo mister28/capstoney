@@ -6,9 +6,7 @@ import LeftSidebar from "./LeftSidebar";
 const Chirp = () => {
   const [chirps, setChirps] = useState([]);
   let Auth = useSelector((state) => state.auth.isAuthenticated);
-  console.log(Auth);
   const User = useSelector((state) => state.user.values);
-  console.log(User.Username);
 
   useEffect(() => {
     fetch(`http://localhost:3099/api/profile/${User.Username}`, {
