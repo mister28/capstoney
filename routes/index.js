@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Chirp = require('../models/Chirp');
+const { id } = require('date-fns/locale');
 
 router.get('/mainfeed/:id', async (req, res) => {
   try {
@@ -15,6 +16,7 @@ router.get('/mainfeed/:id', async (req, res) => {
     res.status(500).send("error");
   }
 });
+
 
 router.post('/mainfeed', function(req, res, next) {
   const { Content, Username } = req.body;

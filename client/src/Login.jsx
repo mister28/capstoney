@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Success, Failure } from "./redux/reducers/authSlice";
 import { fetchUserInfo } from "./redux/reducers/userSlice";
+// import ErrorMessage from "./components/ErrorMessage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const Login = () => {
     Username: "",
     Password: "",
   });
+  // const [Error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const setLoginState = (e) => {
     setLoginForm({
@@ -18,78 +21,74 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
     console.log(LoginForm);
-
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setErrorMessage("Username or Password is Incorrect")
     try {
-
-        const response = await fetch('http://localhost:3099/api/login', {
-            method: 'POST',
-            body: JSON.stringify(LoginForm),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-      
-        const data = await response.json();
-        console.log('Response from backend:', data);
-        if (data.token) {
-          const token = 'secretToken'
-          dispatch(Success(token));
-          dispatch(fetchUserInfo(LoginForm.Username))
-          navigate('/', { replace: true });
-        } else {
-          dispatch(Failure())
-        }
-
-      } catch (error) {
-        // Handle errors (e.g., show an error message)
-        console.error('Error:', error);
+      const response = await fetch("http://localhost:3099/api/login", {
+        method: "POST",
+        body: JSON.stringify(LoginForm),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log("Response from backend:", data);
+      if (data.token) {
+        const token = "secretToken";
+        dispatch(Success(token));
+        dispatch(fetchUserInfo(LoginForm.Username));
+        navigate("/", { replace: true });
+      } else {
+        setErrorMessage(true);
+        // dispatch(Failure());
       }
-    };
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
-      >
-        <h2 className="text-3xl font-bold text-center">Log in to Chirper</h2>
-
-        <input
-          name="Username"
-          type="text"
-          placeholder="username"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setLoginState(e)}
-          value={LoginForm.Username}
-        />
-        <input
-          name="Password"
-          type="password"
-          placeholder="password"
-          className="text-xl py-2 rounded-full px-4"
-          onChange={(e) => setLoginState(e)}
-          value={LoginForm.Password}
-        />
-        <button
-          className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
-          type="submit"
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10"
         >
-          Log in
-        </button>
-        <p className="text-center">
-          Don't have an account?{" "}
-          <Link to="/register" className="text-blue-600">
-            Register
-          </Link>{" "}
-        </p>
-      </form>
+          <h2 className="text-3xl font-bold text-center">Log in to Chirper</h2>
 
-      {/* <br/> */}
-      <div></div>
+          <input
+            name="Username"
+            type="text"
+            placeholder="username"
+            className="text-xl py-2 rounded-full px-4"
+            onChange={(e) => setLoginState(e)}
+            value={LoginForm.Username}
+          />
+          <input
+            name="Password"
+            type="password"
+            placeholder="password"
+            className="text-xl py-2 rounded-full px-4"
+            onChange={(e) => setLoginState(e)}
+            value={LoginForm.Password}
+          />
+            {errorMessage && <div className="error"> {errorMessage} </div>}
+          <button
+            className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
+            type="submit"
+          >
+            Log in
+          </button>
+          <p className="text-center">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-blue-600">
+              Register
+            </Link>{" "}
+          </p>
+        </form>
+
     </>
   );
 };
