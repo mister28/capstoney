@@ -12,7 +12,6 @@ const Chirp = ({toggle, setToggle}) => {
       .then((response) => response.json())
       .then((response) => {
         setChirps(response.reverse());
-        console.log("response from backend", response);
       });
   }, [toggle]);
 

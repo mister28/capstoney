@@ -8,6 +8,4 @@ const rootReducer = combineReducers({ counter: counterReducer, auth: authReducer
 
 const store = configureStore({reducer: rootReducer}, applyMiddleware(thunk));
 
-console.log(store.getState())
-
 export default store;

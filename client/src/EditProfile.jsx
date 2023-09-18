@@ -44,10 +44,8 @@ const EditProfile = () => {
         setImgUploadProgress(Math.round(progress));
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
             break;
           case "running":
-            console.log("Upload is running");
             break;
           default:
             break;
@@ -78,13 +76,11 @@ try {
 const updateProfile = await fetch(`/users/${currentUser._id}`, {
   profilePicture: downloadURL,
 });
-console.log(updateProfile);
 } catch  (error)  {
   console.log(error)
 }
 
 Dispatch(changeProfile(downloadURL));
-
    });
       }
     );
@@ -108,9 +104,7 @@ Dispatch(changeProfile(downloadURL));
       if (response.ok) {
         nav("/profile/");
       } else {
-        console.log("didnt work");
       }
-      console.log("Response from backend:", data);
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error:", error);
