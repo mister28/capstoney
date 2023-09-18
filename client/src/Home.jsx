@@ -1,7 +1,6 @@
 import React from "react";
 import LeftSidebar from "./components/LeftSidebar";
 // import RightSidebar from "./components/RightSidebar";
-// import MainFeed from "./components/MainFeed";
 import { useSelector} from "react-redux";
 import {useState, useEffect } from 'react'
 import Chirp from "./components/Chirp";
@@ -15,7 +14,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [chirps, setChirps] = useState([]);
-  // const User = useSelector((state) => state.user.values);
   const [ChirpForm, setChirpForm] = useState({
     Content: "",
   });
@@ -77,7 +75,7 @@ const Home = () => {
           <div className="px-6">
             <LeftSidebar />
           </div>
-          <div>
+          <div className="">
             <form onSubmit={handleSubmit} className="border-b-2 pb-6">
               <input
                 name="Content"

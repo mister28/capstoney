@@ -22,9 +22,6 @@ export const fetchUserInfo = createAsyncThunk("fetch", async (Username) => {
       Password: '',
       Email: '',
     },
-    currentUser: {
-      profilePhoto: '',
-    },
     loading: false};
 
 export const userSlice = createSlice({
@@ -49,8 +46,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const {
-  changeProfile
-} = userSlice.actions;
+// export const {
+//   changeProfile
+// } = userSlice.actions;
 
 export default userSlice.reducer;

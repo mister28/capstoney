@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MoreHorizontal, Heart } from "react-feather";
+import { Heart } from "react-feather";
 import { useSelector } from "react-redux";
 import LeftSidebar from "./LeftSidebar";
 
@@ -32,8 +32,6 @@ const Chirp = () => {
     }));
   };
 
-  const [userProfile, setUserProfile] = useState(null);
-
   // Function to format timestamp into a user-friendly format
   const formatTimestamp = (timestamp) => {
     const options = {
@@ -52,19 +50,13 @@ const Chirp = () => {
         <div className="px-6">
           <LeftSidebar />
         </div>
-        <div className="grid place-items-center">
+        <div className="grid place-items-across">
           {chirps.map((item) => (
             <div key={item._id} className="flex p-4">
-              <img
-                className="w-10 h-10 rounded-full object-cover"
-                src={userProfile?.profilePhoto} // this will be the user's profile photo
-                alt="User's profile photo"
-              />
-              {/* <img
-            className="w-10 h-10 rounded-full object-cover"
-            src="https://placekitten.com/200/200" // this will be the user's profile photo
-            alt="User's profile photo"
-          /> */}
+              <div className="w-10 h-10 rounded-full object-cover flex items-center justify-center bg-blue-500 text-white">
+                {item.Username.substring(0, 2).toUpperCase()}
+              </div>
+
               <div className="w-full px-2 pb-4 border-b border-[rgba(49,49,50,1)]">
                 {/* Chirps header */}
                 <div className="flex justify-between gap-2">
@@ -72,11 +64,8 @@ const Chirp = () => {
 
                   <div className="flex justify-between gap-2">
                     <p className="text-[rgba(97,97,97,1)]">
-                      {/* {Chirp.timestamp} */}
                       {formatTimestamp(item.Timestamp)}{" "}
-                      {/* Display formatted timestamp */}
                     </p>
-                    {/* <MoreHorizontal /> */}
                   </div>
                 </div>
 
@@ -97,7 +86,6 @@ const Chirp = () => {
                 <div className="flex gap-4">
                   <p className="text-[rgba(97,97,97,1)]">
                     {likes[item._id] ? "Liked" : ""}
-                    {/* 7 Likes */}
                   </p>
                 </div>
               </div>
