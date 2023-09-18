@@ -91,7 +91,7 @@ const Chirp = ({toggle, setToggle}) => {
 
             <div className="flex gap-4">
               <p className="text-[rgba(97,97,97,1)]">
-                {likes[item._id] ? "Liked" : ""}
+                {/* {likes[item._id] ? "Liked" : ""} */}
                {/* {item.likes} likes */}
               </p>
             </div>
