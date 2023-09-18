@@ -8,9 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   let Auth = useSelector((state) => state.auth.isAuthenticated);
-  console.log(Auth);
   const User = useSelector((state) => state.user.values);
-  console.log(User.Username);
   const navigate = useNavigate();
 
   const [chirps, setChirps] = useState([]);

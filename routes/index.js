@@ -21,7 +21,6 @@ router.get('/mainfeed/:id', async (req, res) => {
 router.post('/mainfeed', function(req, res, next) {
   const { Content, Username } = req.body;
   const Timestamp = new Date(); // Set the Timestamp to the current date and time
-  console.log(Content)
 
   const newChirp = new Chirp({
     Content,
@@ -97,15 +96,16 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ Username: Username });
-    console.log(user);
 
     if (!user) {
-      return res.status(404).send("User not found");
+      const responsedata = {Message: 'Incorrect Username or Password'}
+      return res.send(responsedata);
     }
     const passwordMatch = await bcrypt.compare(Password, user.Password);
 
     if (!passwordMatch) {
-      return res.status(401).send("Incorrect password");
+      const responsedata = {Message: 'Incorrect Username or Password'}
+      return res.send(responsedata);
     }
     const token = jwt.sign({ username: user.Username, id: user._id }, "secretToken");
     // Set the token as a cookie and send it in the response
@@ -120,7 +120,6 @@ router.post("/login", async (req, res) => {
 
 router.get('/profile/edit/:Username', async (req, res) => {
   const Username = req.params.Username;
-  console.log(Username)
   try {
   const UserInfo = await User.findOne({ Username: Username });
   res.send(UserInfo);

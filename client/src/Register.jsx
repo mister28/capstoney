@@ -15,8 +15,9 @@ const Register = () => {
       ...RegisterForm,
       [e.target.name]: e.target.value,
     });
-    console.log("RegisterForm", RegisterForm);
   };
+
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,9 +39,7 @@ const Register = () => {
       });
       const data = await response.json();
 
-      // console.log("Response from backend:", data);
       if (data.Message) {
-        // console.log(data.Message);
         setErrorMessage(true)
       } else {
         navigate("/login");
