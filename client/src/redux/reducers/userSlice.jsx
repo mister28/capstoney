@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUserInfo = createAsyncThunk("fetch", async (Username) => {
     const response = await fetch(
-        `http://localhost:3099/api/profile/edit/` + Username,
+        `https://chirper-o3zr.onrender.com/api/profile/edit/` + Username,
         {
             method: "GET",
             headers: {

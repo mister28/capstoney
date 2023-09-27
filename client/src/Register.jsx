@@ -30,7 +30,7 @@ const Register = () => {
     // setErrorMessage("Username is Already Taken");
     try {
 
-      const response = await fetch("http://localhost:3099/api/register", {
+      const response = await fetch("https://chirper-o3zr.onrender.com/api/register", {
         method: "POST",
         body: JSON.stringify(RegisterForm),
         headers: {

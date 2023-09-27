@@ -19,7 +19,7 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3099/api/profile/edit/${User.Username}`,
+        `https://chirper-o3zr.onrender.com/api/profile/edit/${User.Username}`,
         {
           method: "POST",
           body: JSON.stringify(UserInfo),
@@ -44,7 +44,7 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3099/api/delete/${User.Username}`,
+        `https://chirper-o3zr.onrender.com/api/delete/${User.Username}`,
         {
           method: "DELETE",
         }

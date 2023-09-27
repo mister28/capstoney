@@ -9,7 +9,7 @@ const Chirp = () => {
   const User = useSelector((state) => state.user.values);
 
   useEffect(() => {
-    fetch(`http://localhost:3099/api/profile/${User.Username}`, {
+    fetch(`https://chirper-o3zr.onrender.com/api/profile/${User.Username}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })

@@ -5,7 +5,7 @@ const Chirp = ({ toggle, setToggle }) => {
   const [chirps, setChirps] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3099/api/mainfeed/id`, {
+    fetch(`https://chirper-o3zr.onrender.com/api/mainfeed/id`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
