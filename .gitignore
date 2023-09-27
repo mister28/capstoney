@@ -13,7 +13,6 @@ results/
 *.log
 
 # Environment variables
-.env
 
 # macOS
 .DS_Store
