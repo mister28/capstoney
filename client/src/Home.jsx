@@ -47,7 +47,6 @@ const Home = () => {
 
   const [toggle, setToggle] = useState(true);
 
-
   useEffect(() => {
     fetch(`http://localhost:3099/api/mainfeed/id`, {
       method: "GET",
