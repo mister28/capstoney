@@ -28,7 +28,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3099/api/mainfeed", {
+      const response = await fetch("https://chirper-o3zr.onrender.com/api/mainfeed", {
         method: "POST",
         body: JSON.stringify(ChirpForm),
         headers: {
@@ -48,7 +48,7 @@ const Home = () => {
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3099/api/mainfeed/id`, {
+    fetch(`https://chirper-o3zr.onrender.com/api/mainfeed/id`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
