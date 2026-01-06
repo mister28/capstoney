@@ -9,16 +9,21 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 const app = express();
 
-mongoose.connect('mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/ChirpSite', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(
+  'mongodb+srv://young89:mny76ers@cluster0.cvee3vd.mongodb.net/ChirpSite',
+  {
+    tls: true,
+    serverSelectionTimeoutMS: 10000
+  }
+)
+.then(() => {
+  console.log('MongoDB connected');
+})
+.catch(err => {
+  console.error('MongoDB connection error:', err);
 });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-});
-
 // require('./middleware/auth');
 
 app.use(cors());
